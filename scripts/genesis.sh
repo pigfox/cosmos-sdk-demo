@@ -23,10 +23,19 @@ KEY_NAME="pigfox_$(date +%s)"
 echo "Creating new key '$KEY_NAME'..."
 simd keys add "$KEY_NAME" --home "./" --keyring-backend "test"
 
-# Fetch the address of the newly created key
+# Fetch the address and public key of the newly created key
 ADDRESS=$(simd keys show "$KEY_NAME" -a --home "./" --keyring-backend "test")
-echo "Adding genesis account for address: $ADDRESS"
+PUB_KEY=$(simd keys show "$KEY_NAME" -p --home "./" --keyring-backend "test" | jq -r '.key')
+echo "Adding genesis account for address: $ADDRESS with public key: $PUB_KEY"
+
+# Add the genesis account
 simd genesis add-genesis-account "$ADDRESS" 100000000stake --home "./"
+
+# Update the genesis file manually to inject the public key
+GENESIS_FILE="./config/genesis.json"
+jq --arg address "$ADDRESS" --arg pubkey "$PUB_KEY" \
+  '(.app_state.auth.accounts[] | select(.address == $address)).pub_key = {"@type": "/cosmos.crypto.secp256k1.PubKey", "key": $pubkey}' \
+  "$GENESIS_FILE" > "${GENESIS_FILE}.tmp" && mv "${GENESIS_FILE}.tmp" "$GENESIS_FILE"
 
 # Step 4: Add the validator address to the genesis file
 echo "Fetching validator address..."
@@ -44,9 +53,4 @@ else
   exit 1
 fi
 
-# Step 6: Display the content of the genesis file (optional)
 echo "Genesis file created and validated successfully."
-# Uncomment to view the file content
-# cat ./config/genesis.json
-
-#./scripts/copy-generated-genesis.sh
