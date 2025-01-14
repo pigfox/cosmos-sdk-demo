@@ -1,0 +1,17 @@
+cosmos-sdk-setup$ (main) ./scripts/genesis.sh 
+
+cosmos-sdk-setup$ (main) ./scripts/copy-generated-genesis.sh 
+
+diff /home/peter/Documents/Mercor/Project1/cosmos-sdk-setup/config/genesis.json ./genesis_template.json
+
+diff /home/peter/Documents/Mercor/Project1/cosmos-sdk-setup/config/genesis.json ./genesis.json
+
+
+From Brydon: 
+Don't think of it as an AI but as a coworker (a junior swe). your goal is to:
+create a task (a repo in some initial state + a prompt) for that junior swe
+i.e. fix this bug, or insert this feature, or do this code migration, or do this refactor, etc.
+create a way to grade that task. imagine you're trying to do like a 30 day review of this junior swe. you want to be objective and write out your criteria before hand.
+by assumption "pass all tests" is assumed to be a criteria. you can have held out tests (invisible to the junior swe)
+additional programmatic tests are good too. things like "run this bash script and make sure no errors, run this javac command, etc."
+and qualitative criteria are especially desired. things like "make sure that the solution given passes these code smell checks" or "make sure the solution given uses these libraries and not these ones, or follows these best practices, or uses such and such internal module instead of an external version" etc.
