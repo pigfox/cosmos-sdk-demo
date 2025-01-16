@@ -9,6 +9,7 @@ import (
 )
 
 func step0() {
+	clear()
 	fmt.Println("Step 0a: Reset the blockchain")
 
 	// Define the command to reset the blockchain
@@ -23,6 +24,19 @@ func step0() {
 
 	fmt.Println("Blockchain reset successfully!")
 	deleteKeys()
+}
+
+// clear clears the terminal screen
+func clear() {
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	// Execute the command and handle errors
+	err := cmd.Run()
+	if err != nil {
+		fmt.Printf("Failed to clear the terminal: %v\n", err)
+	}
 }
 
 func deleteKeys() {

@@ -21,7 +21,7 @@ type PubKeyData struct {
 	Key  string `json:"key"`
 }
 
-func step6(validatorAddress string, pubkeyJSON string, chainID string) {
+func step6(validatorAddress string, pubkeyJSON string) {
 	fmt.Println("Step 6: Create the genesis file")
 
 	// Define the target path for the genesis file
@@ -30,7 +30,7 @@ func step6(validatorAddress string, pubkeyJSON string, chainID string) {
 	created := time.Now().UTC().Format(time.RFC3339Nano)
 	gp := GenesisParams{
 		createdTime: created,
-		chainID:     chainID,
+		chainID:     CHAIN_ID,
 		address:     validatorAddress,
 		pubKEY:      pubkeyJSON,
 	}

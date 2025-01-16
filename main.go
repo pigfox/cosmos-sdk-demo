@@ -4,20 +4,25 @@ import (
 	"fmt"
 )
 
+const (
+	KEYRING_BACKEND = "test"
+	KEY_NAME        = "the-key"
+	CHAIN_ID        = "1234567890"
+	VALIDATOR_NAME  = "pigfox"
+	HOME_DIR        = "./"
+)
+
 func main() {
 	fmt.Println("Starting setup...")
-	validatorName := "my-validator"
-	chainID := "123456789"
+
 	//source := "./genesis.json"
 	//destination := getHomeDir() + "/.simapp/config/genesis.json"
 	step0()
 	step1()
 	step2()
-	step3(validatorName)
-	validatorAddress := step4(validatorName)
+	step3()
+	validatorAddress := step4()
 	validatorPubkey := step5()
-	step6(validatorAddress, validatorPubkey, chainID)
-	//step8(source, destination)
-	//step9(destination)
-	//step10()
+	step6(validatorAddress, validatorPubkey)
+	step7(validatorAddress)
 }

@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-func step4(validatorName string) string {
+func step4() string {
 	fmt.Println("Step 4: Get the validator address")
 
 	// Run command to get validator address using test keyring backend
-	cmd := exec.Command("simd", "keys", "show", validatorName, "-a", "--keyring-backend", "test")
+	cmd := exec.Command("simd", "keys", "show", VALIDATOR_NAME, "-a", "--keyring-backend", "test")
 	output, err := cmd.Output()
 	if err != nil {
 		log.Fatalf("Error: Failed to retrieve validator address: %v", err)
