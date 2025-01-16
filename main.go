@@ -16,7 +16,6 @@ func main() {
 	step3(validatorName)
 	validatorAddress := step4(validatorName)
 	validatorPubkey := step5()
-	//validatorOperatorAddress := step6(validatorAddress)
 	step6(validatorAddress, validatorPubkey, chainID)
 	//step8(source, destination)
 	//step9(destination)
