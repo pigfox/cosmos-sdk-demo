@@ -1,7 +1,7 @@
 {
   "app_name": "simd",
   "app_version": "0.50.6",
-  "genesis_time": "2025-01-17T01:43:15.403841167Z",
+  "genesis_time": "2025-01-17T01:47:54.189725938Z",
   "chain_id": "1234567890",
   "initial_height": 1,
   "app_hash": null,
@@ -17,7 +17,7 @@
       "accounts": [
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "cosmos1g6rew4ym7hla4fn4k430ge56g0zujk4f3qnwdw",
+          "address": "cosmos138chvxsfrr6gc457wnhm9je32uspvusqy55pak",
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
@@ -34,7 +34,7 @@
       },
       "balances": [
         {
-          "address": "cosmos1g6rew4ym7hla4fn4k430ge56g0zujk4f3qnwdw",
+          "address": "cosmos138chvxsfrr6gc457wnhm9je32uspvusqy55pak",
           "coins": [
             {
               "denom": "stake",

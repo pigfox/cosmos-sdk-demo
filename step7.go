@@ -12,7 +12,7 @@ func step7(validatorAddress string) {
 	// Construct the command
 	cmd := exec.Command(
 		"simd", "tx", "staking", "delegate", validatorAddress, AMOUNT,
-		"--from", KEY_NAME,
+		"--from", keyName,
 		"--chain-id", CHAIN_ID,
 		"--home", HOME_DIR,
 		"--keyring-backend", KEYRING_BACKEND,

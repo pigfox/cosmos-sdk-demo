@@ -17,7 +17,7 @@ func step3() {
 		fmt.Println("Validator key not found. Adding validator key...")
 
 		// Add validator key without interactive input
-		addCmd := exec.Command("simd", "keys", "add", KEY_NAME, "--keyring-backend", KEYRING_BACKEND)
+		addCmd := exec.Command("simd", "keys", "add", keyName, "--keyring-backend", KEYRING_BACKEND)
 		addCmd.Stdin = strings.NewReader("y\n") // Accept prompt automatically
 		addCmd.Stdout = os.Stdout
 		addCmd.Stderr = os.Stderr
