@@ -9,20 +9,16 @@ import (
 func step7(validatorAddress string) {
 	fmt.Println("Step 7: Delegating stake")
 
-	// Define the parameters
-	fees := "10000stake"
-	amount := "500000stake"
-
 	// Construct the command
 	cmd := exec.Command(
-		"simd", "tx", "staking", "delegate", validatorAddress, amount,
+		"simd", "tx", "staking", "delegate", validatorAddress, AMOUNT,
 		"--from", KEY_NAME,
 		"--chain-id", CHAIN_ID,
 		"--home", HOME_DIR,
 		"--keyring-backend", KEYRING_BACKEND,
 		"--broadcast-mode", "sync",
 		"--yes",
-		"--fees", fees,
+		"--fees", FEES,
 	)
 
 	// Capture the output of the command

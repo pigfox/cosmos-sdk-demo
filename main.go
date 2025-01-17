@@ -10,6 +10,8 @@ const (
 	CHAIN_ID        = "1234567890"
 	VALIDATOR_NAME  = "pigfox"
 	HOME_DIR        = "./"
+	FEES            = "10000stake"
+	AMOUNT          = "500000stake"
 )
 
 func main() {
