@@ -25,7 +25,7 @@ func step6(validatorAddress string, pubkeyJSON string) {
 	fmt.Println("Step 6: Create the genesis file")
 
 	// Define the target path for the genesis file
-	genesisFile := getHomeDir() + "/.simapp/config/genesis.json"
+	genesisFile := getHomeDir() + GENESIS_PATH
 
 	created := time.Now().UTC().Format(time.RFC3339Nano)
 	gp := GenesisParams{

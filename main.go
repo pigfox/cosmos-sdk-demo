@@ -8,9 +8,10 @@ const (
 	KEYRING_BACKEND = "test"
 	CHAIN_ID        = "my-chain"
 	VALIDATOR_NAME  = "pigfox"
-	HOME_DIR        = "./"
 	FEES            = "10000stake"
 	AMOUNT          = "500000stake"
+	GENESIS_PATH    = "/.simapp/config/genesis.json"
+	APP_HOME_DIR    = "./"
 )
 
 var keyName = ""

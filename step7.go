@@ -17,7 +17,7 @@ func step7(validatorAddress string) {
 		"simd", "tx", "staking", "delegate", validatorAddress, AMOUNT,
 		"--from", keyName,
 		"--chain-id", CHAIN_ID,
-		"--home", HOME_DIR,
+		"--home", APP_HOME_DIR,
 		"--keyring-backend", KEYRING_BACKEND,
 		"--broadcast-mode", "sync",
 		"--yes",
