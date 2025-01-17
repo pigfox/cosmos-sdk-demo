@@ -1,37 +1,59 @@
 {
-  "app_hash": null,
   "app_name": "simd",
+  "app_version": "0.50.6",
+  "genesis_time": "2025-01-17T02:39:29.713626109Z",
+  "chain_id": "my-chain",
+  "initial_height": 1,
+  "app_hash": null,
   "app_state": {
     "auth": {
+      "params": {
+        "max_memo_characters": "256",
+        "tx_sig_limit": "7",
+        "tx_size_cost_per_byte": "10",
+        "sig_verify_cost_ed25519": "590",
+        "sig_verify_cost_secp256k1": "1000"
+      },
       "accounts": [
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "cosmos1ryd5lqtp0ha5lvxa5tjdu40mxm7zhj0r5e27gt",
+          "pub_key": {
+            "@type": "/cosmos.crypto.ed25519.PubKey",
+            "key": "qbZdqYA00NH6MOrd696FhSuGj98mh7gNOpNxryozli4="
+          },
           "account_number": "0",
-          "address": "cosmos",
-          "pub_key": "{\"@type\":\"/cosmos.crypto.ed25519.PubKey\",\"key\":\"qbZdqYA00NH6MOrd696FhSuGj98mh7gNOpNxryozli4=\"}",
           "sequence": "0"
         }
-      ],
-      "params": {
-        "max_memo_characters": "256",
-        "sig_verify_cost_ed25519": "590",
-        "sig_verify_cost_secp256k1": "1000",
-        "tx_sig_limit": "7",
-        "tx_size_cost_per_byte": "10"
-      }
+      ]
     },
     "authz": {
       "authorization": []
     },
     "bank": {
-      "balances": [],
-      "denom_metadata": [],
       "params": {
-        "default_send_enabled": true,
-        "send_enabled": []
+        "send_enabled": [],
+        "default_send_enabled": true
       },
-      "send_enabled": [],
-      "supply": []
+      "balances": [
+        {
+          "address": "cosmos1ryd5lqtp0ha5lvxa5tjdu40mxm7zhj0r5e27gt",
+          "coins": [
+            {
+              "denom": "stake",
+              "amount": "100000000"
+            }
+          ]
+        }
+      ],
+      "supply": [
+        {
+          "denom": "stake",
+          "amount": "100000000"
+        }
+      ],
+      "denom_metadata": [],
+      "send_enabled": []
     },
     "circuit": {
       "account_permissions": [],
@@ -40,27 +62,27 @@
     "consensus": null,
     "crisis": {
       "constant_fee": {
-        "amount": "1000",
-        "denom": "stake"
+        "denom": "stake",
+        "amount": "1000"
       }
     },
     "distribution": {
-      "delegator_starting_infos": [],
-      "delegator_withdraw_infos": [],
+      "params": {
+        "community_tax": "0.020000000000000000",
+        "base_proposer_reward": "0.000000000000000000",
+        "bonus_proposer_reward": "0.000000000000000000",
+        "withdraw_addr_enabled": true
+      },
       "fee_pool": {
         "community_pool": []
       },
-      "outstanding_rewards": [],
-      "params": {
-        "base_proposer_reward": "0.000000000000000000",
-        "bonus_proposer_reward": "0.000000000000000000",
-        "community_tax": "0.020000000000000000",
-        "withdraw_addr_enabled": true
-      },
+      "delegator_withdraw_infos": [],
       "previous_proposer": "",
+      "outstanding_rewards": [],
       "validator_accumulated_commissions": [],
-      "validator_current_rewards": [],
       "validator_historical_rewards": [],
+      "validator_current_rewards": [],
+      "delegator_starting_infos": [],
       "validator_slash_events": []
     },
     "evidence": {
@@ -73,65 +95,65 @@
       "gen_txs": []
     },
     "gov": {
-      "constitution": "",
-      "deposit_params": null,
+      "starting_proposal_id": "1",
       "deposits": [],
+      "votes": [],
+      "proposals": [],
+      "deposit_params": null,
+      "voting_params": null,
+      "tally_params": null,
       "params": {
-        "burn_proposal_deposit_prevote": false,
-        "burn_vote_quorum": false,
-        "burn_vote_veto": true,
-        "expedited_min_deposit": [
-          {
-            "amount": "50000000",
-            "denom": "stake"
-          }
-        ],
-        "expedited_threshold": "0.667000000000000000",
-        "expedited_voting_period": "86400s",
-        "max_deposit_period": "172800s",
         "min_deposit": [
           {
-            "amount": "10000000",
-            "denom": "stake"
+            "denom": "stake",
+            "amount": "10000000"
           }
         ],
-        "min_deposit_ratio": "0.010000000000000000",
-        "min_initial_deposit_ratio": "0.000000000000000000",
-        "proposal_cancel_dest": "",
-        "proposal_cancel_ratio": "0.500000000000000000",
+        "max_deposit_period": "172800s",
+        "voting_period": "172800s",
         "quorum": "0.334000000000000000",
         "threshold": "0.500000000000000000",
         "veto_threshold": "0.334000000000000000",
-        "voting_period": "172800s"
+        "min_initial_deposit_ratio": "0.000000000000000000",
+        "proposal_cancel_ratio": "0.500000000000000000",
+        "proposal_cancel_dest": "",
+        "expedited_voting_period": "86400s",
+        "expedited_threshold": "0.667000000000000000",
+        "expedited_min_deposit": [
+          {
+            "denom": "stake",
+            "amount": "50000000"
+          }
+        ],
+        "burn_vote_quorum": false,
+        "burn_proposal_deposit_prevote": false,
+        "burn_vote_veto": true,
+        "min_deposit_ratio": "0.010000000000000000"
       },
-      "proposals": [],
-      "starting_proposal_id": "1",
-      "tally_params": null,
-      "votes": [],
-      "voting_params": null
+      "constitution": ""
     },
     "group": {
-      "group_members": [],
-      "group_policies": [],
-      "group_policy_seq": "0",
       "group_seq": "0",
       "groups": [],
+      "group_members": [],
+      "group_policy_seq": "0",
+      "group_policies": [],
       "proposal_seq": "0",
       "proposals": [],
       "votes": []
     },
     "mint": {
       "minter": {
-        "annual_provisions": "0.000000000000000000",
-        "inflation": "0.130000000000000000"
+        "inflation": "0.130000000000000000",
+        "annual_provisions": "0.000000000000000000"
       },
       "params": {
-        "blocks_per_year": "6311520",
-        "goal_bonded": "0.670000000000000000",
+        "mint_denom": "stake",
+        "inflation_rate_change": "0.130000000000000000",
         "inflation_max": "0.200000000000000000",
         "inflation_min": "0.070000000000000000",
-        "inflation_rate_change": "0.130000000000000000",
-        "mint_denom": "stake"
+        "goal_bonded": "0.670000000000000000",
+        "blocks_per_year": "6311520"
       }
     },
     "nft": {
@@ -141,50 +163,45 @@
     "params": null,
     "runtime": null,
     "slashing": {
-      "missed_blocks": [],
       "params": {
-        "downtime_jail_duration": "600s",
-        "min_signed_per_window": "0.500000000000000000",
         "signed_blocks_window": "100",
+        "min_signed_per_window": "0.500000000000000000",
+        "downtime_jail_duration": "600s",
         "slash_fraction_double_sign": "0.050000000000000000",
         "slash_fraction_downtime": "0.010000000000000000"
       },
-      "signing_infos": []
+      "signing_infos": [],
+      "missed_blocks": []
     },
     "staking": {
-      "delegations": [],
-      "exported": false,
+      "params": {
+        "unbonding_time": "1814400s",
+        "max_validators": 100,
+        "max_entries": 7,
+        "historical_entries": 10000,
+        "bond_denom": "stake",
+        "min_commission_rate": "0.000000000000000000"
+      },
       "last_total_power": "0",
       "last_validator_powers": [],
-      "params": {
-        "bond_denom": "stake",
-        "historical_entries": 10000,
-        "max_entries": 7,
-        "max_validators": 100,
-        "min_commission_rate": "0.000000000000000000",
-        "unbonding_time": "1814400s"
-      },
-      "redelegations": [],
+      "validators": [],
+      "delegations": [],
       "unbonding_delegations": [],
-      "validators": []
+      "redelegations": [],
+      "exported": false
     },
     "upgrade": {},
     "vesting": {}
   },
-  "app_version": "0.50.6",
-  "chain_id": "1234567890",
   "consensus": {
     "params": {
-      "abci": {
-        "vote_extensions_enable_height": "0"
-      },
       "block": {
         "max_bytes": "22020096",
         "max_gas": "-1"
       },
       "evidence": {
-        "max_age_duration": "172800000000000",
         "max_age_num_blocks": "100000",
+        "max_age_duration": "172800000000000",
         "max_bytes": "1048576"
       },
       "validator": {
@@ -194,9 +211,10 @@
       },
       "version": {
         "app": "0"
+      },
+      "abci": {
+        "vote_extensions_enable_height": "0"
       }
     }
-  },
-  "genesis_time": "2025-01-07T05:39:49.945541706Z",
-  "initial_height": 1
+  }
 }
