@@ -6,7 +6,7 @@ import (
 
 const (
 	KEYRING_BACKEND = "test"
-	KEY_NAME        = "the-key"
+	KEY_NAME        = "the-key555"
 	CHAIN_ID        = "1234567890"
 	VALIDATOR_NAME  = "pigfox"
 	HOME_DIR        = "./"

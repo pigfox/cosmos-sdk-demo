@@ -24,6 +24,7 @@ func step0() {
 
 	fmt.Println("Blockchain reset successfully!")
 	deleteKeys()
+	addKey()
 }
 
 // clear clears the terminal screen
@@ -40,7 +41,7 @@ func clear() {
 }
 
 func deleteKeys() {
-	fmt.Println("Step 0b: Checking keys")
+	fmt.Println("Step 0b: Deleting keys")
 
 	// Define the command to list keys in JSON format
 	cmd := exec.Command("simd", "keys", "list", "--home", HOME_DIR, "--keyring-backend", KEYRING_BACKEND, "--output", "json")
@@ -109,4 +110,33 @@ func parseKeyNames(jsonOutput string) []string {
 		}
 	}
 	return keyNames
+}
+
+func addKey() {
+	fmt.Println("Step 0c: Create new key")
+
+	// Construct the command
+	cmd := exec.Command(
+		"simd", "keys", "add", KEY_NAME,
+		"--home", HOME_DIR,
+		"--keyring-backend", KEYRING_BACKEND,
+	)
+
+	// Capture the output of the command
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &out
+
+	// Execute the command
+	err := cmd.Run()
+	if err != nil {
+		fmt.Printf("Error creating key: %v\n", err)
+		fmt.Println("Command output:")
+		fmt.Println(out.String())
+		return
+	}
+
+	// Print the result
+	fmt.Println("Key creation result:")
+	fmt.Println(out.String())
 }
