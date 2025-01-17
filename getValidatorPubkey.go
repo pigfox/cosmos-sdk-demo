@@ -10,7 +10,7 @@ import (
 )
 
 func getValidatorPubkey() string {
-	fmt.Println("Step 5: Get the validator public key")
+	fmt.Println("getValidatorPubkey: Get the validator public key")
 
 	// Run the command to get the validator public key
 	cmd := exec.Command("simd", "tendermint", "show-validator")

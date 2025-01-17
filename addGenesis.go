@@ -24,7 +24,7 @@ type PubKeyData struct {
 }
 
 func addGenesis(accountAddress string, pubkeyJSON string) {
-	fmt.Println("Step 6: Create the genesis file")
+	fmt.Println("addGenesis: Create the genesis file")
 
 	// Define the target path for the genesis file
 	genesisFile := getHomeDir() + GENESIS_PATH

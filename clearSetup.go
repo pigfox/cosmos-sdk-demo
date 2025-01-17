@@ -10,7 +10,7 @@ import (
 
 func clearSetup() {
 	clear()
-	fmt.Println("Step 0a: Reset the blockchain")
+	fmt.Println("clearSetup: Reset the blockchain")
 
 	// Define the command to reset the blockchain
 	cmd := exec.Command("ignite", "chain", "reset")

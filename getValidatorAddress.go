@@ -11,7 +11,7 @@ import (
 )
 
 func getValidatorAddress() string {
-	fmt.Println("Step 4: Get the validator address")
+	fmt.Println("getValidatorAddress: Get the validator address")
 
 	// Step 4.1: Get the account address
 	cmd := exec.Command("simd", "keys", "show", VALIDATOR_NAME, "-a", "--keyring-backend", KEYRING_BACKEND)

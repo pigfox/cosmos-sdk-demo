@@ -11,7 +11,7 @@ import (
 )
 
 func addValidatorKey() {
-	fmt.Println("Step 3: Add a validator key if it doesn't exist")
+	fmt.Println("addValidatorKey: Add a validator key if it doesn't exist")
 
 	// Check if the validator key exists using test keyring backend
 	cmd := exec.Command("simd", "keys", "show", VALIDATOR_NAME, "--keyring-backend", KEYRING_BACKEND)
