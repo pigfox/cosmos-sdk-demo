@@ -53,15 +53,17 @@ func addGenesis(accountAddress string, pubkeyJSON string) {
 }
 
 func getGenesisJSON(gp GenesisParams) string {
-	regex := `^cosmos1[0-9a-z]{38}$`
+	fmt.Println("address:", gp.address)
+	regex := `^cosmos1[a-z0-9]{38}$`
 	// Validate the address
 	matched, err := regexp.MatchString(regex, gp.address)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 		os.Exit(1)
 	}
+
 	if !matched {
-		fmt.Println("Error: address is not in the correct format")
+		fmt.Println("Error: address is not in the correct format", whereami.WhereAmI())
 		fmt.Println("address:", gp.address)
 		os.Exit(1)
 	}
@@ -92,8 +94,8 @@ func getGenesisJSON(gp GenesisParams) string {
 		os.Exit(1)
 	}
 
-	if gp.chainID == "" {
-		fmt.Println("Error: chainID is empty")
+	if gp.chainID != CHAIN_ID {
+		fmt.Println("Error: chainID is not correct, required: ", CHAIN_ID)
 		os.Exit(1)
 	}
 

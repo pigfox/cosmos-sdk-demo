@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 func getAccountAddress() string {
@@ -25,5 +26,5 @@ func getAccountAddress() string {
 	}
 
 	// Return the address from the output
-	return out.String()
+	return strings.TrimSpace(out.String())
 }
