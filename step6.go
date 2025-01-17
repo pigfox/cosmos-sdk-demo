@@ -112,7 +112,7 @@ func getGenesisJSON(gp GenesisParams) string {
   "app_name": "simd",
   "app_version": "0.50.6",
   "genesis_time": "` + gp.createdTime + `",
-  "chain_id": "1234567890",
+  "chain_id": "` + gp.chainID + `",
   "initial_height": 1,
   "app_hash": null,
   "app_state": {

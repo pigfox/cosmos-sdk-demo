@@ -8,8 +8,9 @@ import (
 
 func step7(validatorAddress string) {
 	fmt.Println("Step 7: Delegating stake")
-	fmt.Print("validatorAddress: ", validatorAddress, "\n")
+	fmt.Print("initial validatorAddress: ", validatorAddress, "\n")
 	validatorAddress = "cosmosvaloper" + validatorAddress[6:]
+	fmt.Print("second validatorAddress: ", validatorAddress, "\n")
 
 	// Construct the command
 	cmd := exec.Command(

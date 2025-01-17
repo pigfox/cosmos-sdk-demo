@@ -6,7 +6,7 @@ import (
 
 const (
 	KEYRING_BACKEND = "test"
-	CHAIN_ID        = "1234567890"
+	CHAIN_ID        = "my-chain"
 	VALIDATOR_NAME  = "pigfox"
 	HOME_DIR        = "./"
 	FEES            = "10000stake"
@@ -27,5 +27,7 @@ func main() {
 	validatorAddress := step4()
 	validatorPubkey := step5()
 	step6(validatorAddress, validatorPubkey)
+	node("start")
 	step7(validatorAddress)
+	node("stop")
 }
