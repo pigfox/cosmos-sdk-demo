@@ -104,6 +104,7 @@ func getGenesisJSON(gp GenesisParams) string {
 	}
 
 	if !matched {
+		fmt.Println("Given createdTime:", gp.createdTime)
 		fmt.Println("Error: createdTime is not in the correct format")
 		os.Exit(1)
 	}
