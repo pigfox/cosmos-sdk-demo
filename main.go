@@ -6,6 +6,7 @@ import (
 
 const (
 	KEYRING_BACKEND = "test"
+	KEY_NAME        = "my-key"
 	CHAIN_ID        = "my-chain"
 	VALIDATOR_NAME  = "pigfox"
 	FEES            = "10000stake"
@@ -15,8 +16,6 @@ const (
 	START           = "start"
 	STOP            = "stop"
 )
-
-var keyName = ""
 
 func main() {
 	fmt.Println("Starting setup...")

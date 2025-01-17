@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -16,7 +15,7 @@ func addValidatorKey() {
 	// Check if the validator key exists using test keyring backend
 	cmd := exec.Command("simd", "keys", "show", VALIDATOR_NAME, "--keyring-backend", KEYRING_BACKEND)
 	if err := cmd.Run(); err != nil {
-		fmt.Println("Validator key not found. Adding validator key...", whereami.WhereAmI(), err)
+		fmt.Println("Validator key not found. Adding validator key...", err, whereami.WhereAmI())
 
 		// Add validator key without interactive input
 		addCmd := exec.Command("simd", "keys", "add", keyName, "--keyring-backend", KEYRING_BACKEND)
@@ -26,7 +25,8 @@ func addValidatorKey() {
 
 		// Run the add command
 		if err := addCmd.Run(); err != nil {
-			log.Fatalf("Error adding validator key: %v", whereami.WhereAmI(), err)
+			fmt.Println("Error adding validator key: ", err, whereami.WhereAmI())
+			os.Exit(1)
 		}
 		fmt.Println("Validator key added successfully!")
 	} else {
