@@ -1,10 +1,18 @@
-cosmos-sdk-setup$ (main) ./scripts/genesis.sh 
+The address in your logs seems to be incorrectly prefixed with cosmosvaloper instead of cosmos. 
+Here's the explanation:
 
-cosmos-sdk-setup$ (main) ./scripts/copy-generated-genesis.sh 
+cosmos: This is the prefix used for regular account addresses in the Cosmos SDK. 
+These are used for general accounts and balances.
+cosmosvaloper: This prefix is used for validator operator addresses in Cosmos. 
+These addresses are typically used to control validator nodes.
+The error you're seeing is because the system expects a regular address prefixed with cosmos, 
+but it found a validator address with the cosmosvaloper prefix.
 
-diff /home/peter/Documents/Mercor/Project1/cosmos-sdk-setup/config/genesis.json ./genesis_template.json
+To fix the issue, you need to ensure the validator address (with the cosmosvaloper prefix) is properly 
+assigned in the genesis file or any relevant configuration.
 
-diff /home/peter/Documents/Mercor/Project1/cosmos-sdk-setup/config/genesis.json ./genesis.json
+You should use the cosmos prefix for regular addresses and cosmosvaloper for validator addresses in the 
+appropriate fields in your configuration files.
 
 
 From Brydon: 

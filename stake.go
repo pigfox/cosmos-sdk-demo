@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func step7(validatorAddress string) {
+func stake(validatorAddress string) {
 	fmt.Println("Step 7: Delegating stake")
 	fmt.Print("initial validatorAddress: ", validatorAddress, "\n")
 

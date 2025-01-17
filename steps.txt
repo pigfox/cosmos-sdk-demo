@@ -1,0 +1,116 @@
+Here’s a detailed guide to the sequence of commands using simd (Cosmos SDK) to perform the actions you requested.
+
+1. Create a Key (for the first account)
+To generate a new keypair and store it locally:
+
+
+simd keys add <key_name>
+This will generate a key pair and show you the following:
+
+Mnemonic: Backup phrase to restore the key.
+Address: The account address (starts with cosmos).
+Example:
+
+
+Address: cosmos1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+2. Get the Address and Validator Address
+The address for your account is generated during the key creation process, which you can retrieve by running:
+
+
+simd keys show <key_name> --address
+This returns the address of the account, which will start with cosmos1....
+
+For a validator address, you will need to create a validator later using the cosmosvaloper prefix. You’ll generate this address when you create a validator.
+
+3. Starting a Node
+To start the node, first, you need to initialize the node and configure the genesis file, then start it:
+
+
+simd init <node_name> --chain-id <chain_id>
+<node_name>: Choose a name for your node.
+<chain_id>: Specify the chain ID for the Cosmos chain you're running.
+After initialization, you can configure the genesis file as needed (e.g., adding validator information, genesis delegations, etc.). Once configured, start the node:
+
+
+simd start
+This starts the Cosmos node, and it begins syncing with the network.
+
+4. Staking Tokens (Delegate to a Validator)
+First, ensure your account has some tokens by either generating them through the faucet or minting them. Then, delegate tokens to a validator:
+
+
+simd tx staking delegate <validator_address> <amount> --from <key_name> --chain-id <chain_id> --fees <fee> --gas <gas_limit>
+<validator_address>: The validator address you wish to stake tokens to (starts with cosmosvaloper...).
+<amount>: Amount to stake (e.g., 1000uatom).
+<key_name>: The key that will sign the transaction.
+<chain_id>: Chain ID.
+<fee>: Transaction fee (e.g., 500uatom).
+<gas_limit>: Gas limit (e.g., 200000).
+Example:
+
+
+simd tx staking delegate cosmosvaloper1xxxxxxxxxxxxxxxxxxxx 1000uatom --from <key_name> --chain-id cosmoshub-4 --fees 500uatom --gas 200000
+5. Create a Second Address
+To create a second address, simply add another key:
+
+
+simd keys add <second_key_name>
+This will generate another address, and you can retrieve it by:
+
+
+simd keys show <second_key_name> --address
+6. Transfer Tokens
+Transfer tokens from your first account to the second account:
+
+
+simd tx send <from_key_name> <to_address> <amount> --chain-id <chain_id> --fees <fee> --gas <gas_limit>
+<from_key_name>: The key from which you are sending tokens.
+<to_address>: The recipient address (the second address generated).
+<amount>: Amount to send (e.g., 1000uatom).
+<fee>: Transaction fee.
+<gas_limit>: Gas limit.
+Example:
+
+
+simd tx send <from_key_name> cosmos1yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy 1000uatom --chain-id cosmoshub-4 --fees 500uatom --gas 200000
+7. Submitting a Governance Proposal
+To create a governance proposal, you need to prepare a proposal file (for example, a text file or a JSON proposal file). Here's a simple example for submitting a text proposal:
+
+
+simd tx governance submit-proposal <proposal_file_path> --from <key_name> --chain-id <chain_id> --fees <fee> --gas <gas_limit>
+<proposal_file_path>: Path to the proposal file (text or JSON).
+<key_name>: The key that will sign the transaction.
+<chain_id>: Chain ID.
+<fee>: Transaction fee.
+<gas_limit>: Gas limit.
+Example:
+
+
+simd tx governance submit-proposal proposal.txt --from <key_name> --chain-id cosmoshub-4 --fees 500uatom --gas 200000
+8. Voting on the Proposal
+After the proposal is submitted, you can vote on it. Use the following command to vote:
+
+
+simd tx governance vote <proposal_id> <vote_option> --from <key_name> --chain-id <chain_id> --fees <fee> --gas <gas_limit>
+<proposal_id>: The ID of the proposal.
+<vote_option>: The vote option (yes, no, abstain).
+<key_name>: The key that will sign the transaction.
+<chain_id>: Chain ID.
+<fee>: Transaction fee.
+<gas_limit>: Gas limit.
+Example:
+
+
+simd tx governance vote 1 yes --from <key_name> --chain-id cosmoshub-4 --fees 500uatom --gas 200000
+Summary of Commands
+Create Key: simd keys add <key_name>
+Show Address: simd keys show <key_name> --address
+Start Node:
+simd init <node_name> --chain-id <chain_id>
+simd start
+Delegate (Stake): simd tx staking delegate <validator_address> <amount> --from <key_name> --chain-id <chain_id> --fees <fee> --gas <gas_limit>
+Create Second Address: simd keys add <second_key_name>
+Transfer Tokens: simd tx send <from_key_name> <to_address> <amount> --chain-id <chain_id> --fees <fee> --gas <gas_limit>
+Submit Governance Proposal: simd tx governance submit-proposal <proposal_file_path> --from <key_name> --chain-id <chain_id> --fees <fee> --gas <gas_limit>
+Vote on Proposal: simd tx governance vote <proposal_id> <vote_option> --from <key_name> --chain-id <chain_id> --fees <fee> --gas <gas_limit>
+Each step will require you to customize the <key_name>, <validator_address>, <amount>, and other details based on your specific Cosmos setup and chain configuration.

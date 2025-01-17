@@ -12,20 +12,24 @@ const (
 	AMOUNT          = "500000stake"
 	GENESIS_PATH    = "/.simapp/config/genesis.json"
 	APP_HOME_DIR    = "./"
+	START           = "start"
+	STOP            = "stop"
 )
 
 var keyName = ""
 
 func main() {
 	fmt.Println("Starting setup...")
-	step0()
-	step1()
-	step2()
-	step3()
-	validatorAddress := step4()
-	validatorPubkey := step5()
-	step6(validatorAddress, validatorPubkey)
-	node("start")
-	step7(validatorAddress)
-	node("stop")
+	clearSetup()
+	simd()
+	tools()
+	addValidatorKey()
+	validatorAddress := getValidatorAddress()
+	validatorPubkey := getValidatorPubkey()
+	accountAddress := getAccountAddress()
+	fmt.Println("accountAddress", accountAddress)
+	addGenesis(validatorAddress, validatorPubkey)
+	node(START)
+	stake(validatorAddress)
+	node(STOP)
 }

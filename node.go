@@ -7,7 +7,7 @@ import (
 )
 
 func node(state string) {
-	if state == "start" {
+	if state == START {
 		fmt.Println("Starting node...")
 		// Start the node with the simd command
 		cmd := exec.Command("simd", "start")
@@ -24,7 +24,7 @@ func node(state string) {
 		}
 		fmt.Println("Node started successfully.")
 
-	} else if state == "stop" {
+	} else if state == STOP {
 		fmt.Println("Stopping node...")
 		// Stopping the node can be done by killing the process or using a specific command
 		// Here we'll attempt to find the process ID (PID) of the running node and kill it

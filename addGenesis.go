@@ -6,6 +6,8 @@ import (
 	"os"
 	"regexp"
 	"time"
+
+	"github.com/jimlawless/whereami"
 )
 
 type GenesisParams struct {
@@ -21,7 +23,7 @@ type PubKeyData struct {
 	Key  string `json:"key"`
 }
 
-func step6(validatorAddress string, pubkeyJSON string) {
+func addGenesis(accountAddress string, pubkeyJSON string) {
 	fmt.Println("Step 6: Create the genesis file")
 
 	// Define the target path for the genesis file
@@ -31,10 +33,10 @@ func step6(validatorAddress string, pubkeyJSON string) {
 	gp := GenesisParams{
 		createdTime: created,
 		chainID:     CHAIN_ID,
-		address:     validatorAddress,
+		address:     accountAddress,
 		pubKEY:      pubkeyJSON,
 	}
-	fmt.Println("validatorAddress", validatorAddress)
+	fmt.Println("accountAddress", accountAddress)
 	fmt.Printf("+%v\n", gp)
 
 	genesisJson := getGenesisJSON(gp)
@@ -42,7 +44,7 @@ func step6(validatorAddress string, pubkeyJSON string) {
 	// Write the updated data to the target genesis file location
 	err := os.WriteFile(genesisFile, []byte(genesisJson), 0644)
 	if err != nil {
-		fmt.Println("Error: Failed to write updated genesis file:", err)
+		fmt.Println("Error: Failed to write updated genesis file:", whereami.WhereAmI(), err)
 		os.Exit(1)
 	}
 
@@ -51,12 +53,11 @@ func step6(validatorAddress string, pubkeyJSON string) {
 }
 
 func getGenesisJSON(gp GenesisParams) string {
-	regex := `^cosmosvaloper1[0-9a-z]{38}$`
-
+	regex := `^cosmos1[0-9a-z]{38}$`
 	// Validate the address
 	matched, err := regexp.MatchString(regex, gp.address)
 	if err != nil {
-		fmt.Println("Error with regex:", err)
+		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 		os.Exit(1)
 	}
 	if !matched {
@@ -68,7 +69,7 @@ func getGenesisJSON(gp GenesisParams) string {
 	var data PubKeyData
 	err = json.Unmarshal([]byte(gp.pubKEY), &data)
 	if err != nil {
-		fmt.Println("Invalid JSON format:", err)
+		fmt.Println("Invalid JSON format:", whereami.WhereAmI(), err)
 		os.Exit(1)
 	}
 
@@ -82,7 +83,7 @@ func getGenesisJSON(gp GenesisParams) string {
 	keyRegex := `^[a-zA-Z0-9+/]{43}=$`
 	matched, err = regexp.MatchString(keyRegex, data.Key)
 	if err != nil {
-		fmt.Println("Error with regex:", err)
+		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 		os.Exit(1)
 	}
 
@@ -99,7 +100,7 @@ func getGenesisJSON(gp GenesisParams) string {
 	regex = `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{8,9}Z$` // vaild time format: 2025-01-17T02:42:28.062004646Z
 	matched, err = regexp.MatchString(regex, gp.createdTime)
 	if err != nil {
-		fmt.Println("Error with regex:", err)
+		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 		os.Exit(1)
 	}
 

@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func step0() {
+func clearSetup() {
 	clear()
 	fmt.Println("Step 0a: Reset the blockchain")
 
