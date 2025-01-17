@@ -18,9 +18,6 @@ var keyName = ""
 
 func main() {
 	fmt.Println("Starting setup...")
-
-	//source := "./genesis.json"
-	//destination := getHomeDir() + "/.simapp/config/genesis.json"
 	step0()
 	step1()
 	step2()
