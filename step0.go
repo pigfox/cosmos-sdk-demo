@@ -24,7 +24,7 @@ func step0() {
 
 	fmt.Println("Blockchain reset successfully!")
 	deleteKeys()
-	addKey()
+	//addKey()
 }
 
 // clear clears the terminal screen
@@ -110,33 +110,4 @@ func parseKeyNames(jsonOutput string) []string {
 		}
 	}
 	return keyNames
-}
-
-func addKey() {
-	fmt.Println("Step 0c: Create new key")
-
-	// Construct the command
-	cmd := exec.Command(
-		"simd", "keys", "add", KEY_NAME,
-		"--home", HOME_DIR,
-		"--keyring-backend", KEYRING_BACKEND,
-	)
-
-	// Capture the output of the command
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stderr = &out
-
-	// Execute the command
-	err := cmd.Run()
-	if err != nil {
-		fmt.Printf("Error creating key: %v\n", err)
-		fmt.Println("Command output:")
-		fmt.Println(out.String())
-		return
-	}
-
-	// Print the result
-	fmt.Println("Key creation result:")
-	fmt.Println(out.String())
 }
