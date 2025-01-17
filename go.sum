@@ -1,2 +1,4 @@
+github.com/cosmos/btcutil v1.0.5 h1:t+ZFcX77LpKtDBhjucvnOH8C2l2ioGsBNEQ3jef8xFk=
+github.com/cosmos/btcutil v1.0.5/go.mod h1:IyB7iuqZMJlthe2tkIFL33xPyzbFYP0XVdS8P5lUPis=
 github.com/jimlawless/whereami v0.0.0-20230806140227-e3eb03695f09 h1:yANc4zngn1K7DSMewD7h7oiz2G8VO0eLJv2JO20gDuU=
 github.com/jimlawless/whereami v0.0.0-20230806140227-e3eb03695f09/go.mod h1:O5/I95fNj2n4v8dVHc/XX/rv4i9P5AAr0koHbBkPnh8=

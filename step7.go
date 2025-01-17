@@ -4,13 +4,18 @@ import (
 	"bytes"
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 func step7(validatorAddress string) {
 	fmt.Println("Step 7: Delegating stake")
 	fmt.Print("initial validatorAddress: ", validatorAddress, "\n")
-	//validatorAddress = "cosmosvaloper" + validatorAddress[6:]
-	//fmt.Print("second validatorAddress: ", validatorAddress, "\n")
+
+	// Ensure the validator address has the correct 'cosmosvaloper' prefix
+	if !strings.HasPrefix(validatorAddress, "cosmosvaloper") {
+		fmt.Println("Error: Validator address is missing the correct 'cosmosvaloper' prefix.")
+		return
+	}
 
 	// Construct the command
 	cmd := exec.Command(

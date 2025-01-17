@@ -51,7 +51,7 @@ func step6(validatorAddress string, pubkeyJSON string) {
 }
 
 func getGenesisJSON(gp GenesisParams) string {
-	regex := `^cosmos1[0-9a-z]{38}$`
+	regex := `^cosmosvaloper1[0-9a-z]{38}$`
 
 	// Validate the address
 	matched, err := regexp.MatchString(regex, gp.address)
