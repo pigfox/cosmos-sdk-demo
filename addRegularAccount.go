@@ -44,13 +44,8 @@ func parseAccountDetails(output string) {
 			line = line[2:]
 		}
 
-		// Debugging log to inspect the line
-		fmt.Printf("Processing line: '%s'\n", line)
-
 		if strings.HasPrefix(line, "address:") {
 			address := strings.TrimSpace(strings.TrimPrefix(line, "address:"))
-			// Debugging log
-			fmt.Printf("Parsed address: '%s'\n", address)
 			regularAccount.Address = address
 		} else if strings.HasPrefix(line, "name:") {
 			regularAccount.Name = strings.TrimSpace(strings.TrimPrefix(line, "name:"))

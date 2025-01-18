@@ -18,6 +18,7 @@ const (
 )
 
 var regularAccount RegularAccount
+var validator Validator
 
 func main() {
 	fmt.Println("Starting setup...")
@@ -25,14 +26,8 @@ func main() {
 	simd()
 	tools()
 	addRegularAccount()
+	addValidatorAndKey()
 	/*
-		addValidatorKey()
-		validatorAddress := getValidatorAddress()
-		fmt.Println("Validator address:", validatorAddress)
-		validatorPubkey := getValidatorPubkey()
-		fmt.Println("Validator pubkey:", validatorPubkey)
-		accountAddress := getAccountAddress()
-		fmt.Println("Account address:", accountAddress)
 		os.Exit(0)
 		addGenesis(accountAddress, validatorAddress, validatorPubkey)
 		node(START)
