@@ -11,10 +11,11 @@ import (
 )
 
 type GenesisParams struct {
-	createdTime string
-	chainID     string
-	address     string
-	pubKEY      string
+	createdTime      string
+	chainID          string
+	address          string
+	pubKEY           string
+	validatorAddress string
 }
 
 // Struct to represent the expected PubKeyData JSON structure
@@ -23,7 +24,7 @@ type PubKeyData struct {
 	Key  string `json:"key"`
 }
 
-func addGenesis(accountAddress string, pubkeyJSON string) {
+func addGenesis(accountAddress, validatorAddress, pubkeyJSON string) {
 	fmt.Println("addGenesis: Create the genesis file")
 
 	// Define the target path for the genesis file
@@ -31,10 +32,11 @@ func addGenesis(accountAddress string, pubkeyJSON string) {
 
 	created := time.Now().UTC().Format(time.RFC3339Nano)
 	gp := GenesisParams{
-		createdTime: created,
-		chainID:     CHAIN_ID,
-		address:     accountAddress,
-		pubKEY:      pubkeyJSON,
+		createdTime:      created,
+		chainID:          CHAIN_ID,
+		address:          accountAddress,
+		pubKEY:           pubkeyJSON,
+		validatorAddress: validatorAddress,
 	}
 	fmt.Println("accountAddress", accountAddress)
 	fmt.Printf("+%v\n", gp)
@@ -65,6 +67,19 @@ func getGenesisJSON(gp GenesisParams) string {
 	if !matched {
 		fmt.Println("Error: address is not in the correct format", whereami.WhereAmI())
 		fmt.Println("address:", gp.address)
+		os.Exit(1)
+	}
+
+	regex = `^cosmosvaloper1[a-z0-9]{38}$`
+	matched, err = regexp.MatchString(regex, gp.validatorAddress)
+	if err != nil {
+		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
+		os.Exit(1)
+	}
+
+	if !matched {
+		fmt.Println("Error: validator address is not in the correct format", whereami.WhereAmI())
+		fmt.Println("validatorAddress:", gp.validatorAddress)
 		os.Exit(1)
 	}
 
@@ -298,7 +313,35 @@ func getGenesisJSON(gp GenesisParams) string {
       },
       "last_total_power": "0",
       "last_validator_powers": [],
-      "validators": [],
+      "validators": [
+  {
+    "operator_address": "cosmosvaloper1abcd...",
+    "consensus_pubkey": {
+      "@type": "/cosmos.crypto.ed25519.PubKey",
+      "key": "4ZG5UqZ..."
+    },
+    "status": "BOND_STATUS_BONDED",
+    "tokens": "100000000",
+    "delegator_shares": "100000000.000000000000000000",
+    "description": {
+      "moniker": "MyValidator",
+      "identity": "",
+      "website": "",
+      "details": ""
+    },
+    "unbonding_height": "0",
+    "unbonding_time": "1970-01-01T00:00:00Z",
+    "commission": {
+      "commission_rates": {
+        "rate": "0.100000000000000000",
+        "max_rate": "0.200000000000000000",
+        "max_change_rate": "0.010000000000000000"
+      },
+      "update_time": "1970-01-01T00:00:00Z"
+    },
+    "min_self_delegation": "1"
+  }
+],
       "delegations": [],
       "unbonding_delegations": [],
       "redelegations": [],

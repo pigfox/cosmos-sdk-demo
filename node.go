@@ -44,7 +44,7 @@ func node(state string) {
 		fmt.Println("Node stopped successfully.")
 
 	} else {
-		fmt.Println("Invalid state. Use 'start' or 'stop'.")
+		fmt.Println("Invalid state. Use 'START' or 'STOP'.")
 	}
 
 	// Query the node's status

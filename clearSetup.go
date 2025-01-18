@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"strings"
+	"regexp"
+	"time"
 )
 
 func clearSetup() {
@@ -24,7 +25,6 @@ func clearSetup() {
 
 	fmt.Println("Blockchain reset successfully!")
 	deleteKeys()
-	//addKey()
 }
 
 // clear clears the terminal screen
@@ -41,7 +41,14 @@ func clear() {
 }
 
 func deleteKeys() {
-	fmt.Println("Step 0b: Deleting keys")
+	fmt.Println("Step 0b: Deleting all keys")
+
+	// Remove all files in the keyring-test directory
+	err := os.RemoveAll("keyring-test/*")
+	if err != nil {
+		fmt.Printf("Error clearing keyring-test directory: %v\n", err)
+		return
+	}
 
 	// Define the command to list keys in JSON format
 	cmd := exec.Command("simd", "keys", "list", "--home", APP_HOME_DIR, "--keyring-backend", KEYRING_BACKEND, "--output", "json")
@@ -52,9 +59,9 @@ func deleteKeys() {
 	cmd.Stderr = &out
 
 	// Execute the command
-	err := cmd.Run()
+	err = cmd.Run()
 	if err != nil {
-		fmt.Println("No keys to delete.")
+		fmt.Println("Error listing keys:", err)
 		return
 	}
 
@@ -83,8 +90,12 @@ func deleteKeys() {
 		delErr := delCmd.Run()
 		if delErr != nil {
 			fmt.Printf("Failed to delete key %s: %v\n", key, delErr)
+		} else {
+			fmt.Printf("Key %s deleted successfully.\n", key)
 		}
 	}
+
+	time.Sleep(2 * time.Second)
 
 	// List remaining keys
 	fmt.Println("Remaining keys:")
@@ -97,17 +108,15 @@ func deleteKeys() {
 
 // parseKeyNames parses the JSON output from `simd keys list` and extracts key names
 func parseKeyNames(jsonOutput string) []string {
-	lines := strings.Split(jsonOutput, "\n")
+	// Regular expression to match key names in the output
+	re := regexp.MustCompile(`"name":\s*"([^"]+)"`)
+	matches := re.FindAllStringSubmatch(jsonOutput, -1)
+
 	var keyNames []string
-	for _, line := range lines {
-		if strings.Contains(line, "name") {
-			parts := strings.Split(line, ":")
-			if len(parts) > 1 {
-				// Extract the key name and trim quotes/spaces
-				keyName := strings.Trim(parts[1], ` ",`)
-				keyNames = append(keyNames, keyName)
-			}
-		}
+	for _, match := range matches {
+		// match[1] contains the captured key name
+		keyNames = append(keyNames, match[1])
 	}
+
 	return keyNames
 }

@@ -13,6 +13,8 @@ Example:
 
 
 Address: cosmos1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
 2. Get the Address and Validator Address
 The address for your account is generated during the key creation process, which you can retrieve by running:
 
@@ -20,7 +22,8 @@ The address for your account is generated during the key creation process, which
 simd keys show <key_name> --address
 This returns the address of the account, which will start with cosmos1....
 
-For a validator address, you will need to create a validator later using the cosmosvaloper prefix. You’ll generate this address when you create a validator.
+For a validator address, you will need to create a validator later using the cosmosvaloper prefix. 
+You’ll generate this address when you create a validator.
 
 3. Starting a Node
 To start the node, first, you need to initialize the node and configure the genesis file, then start it:

@@ -17,18 +17,26 @@ const (
 	STOP            = "stop"
 )
 
+var regularAccount RegularAccount
+
 func main() {
 	fmt.Println("Starting setup...")
 	clearSetup()
 	simd()
 	tools()
-	addValidatorKey()
-	validatorAddress := getValidatorAddress()
-	fmt.Println("Validator address:", validatorAddress)
-	validatorPubkey := getValidatorPubkey()
-	accountAddress := getAccountAddress()
-	addGenesis(accountAddress, validatorPubkey)
-	node(START)
-	//stake(validatorAddress)
-	node(STOP)
+	addRegularAccount()
+	/*
+		addValidatorKey()
+		validatorAddress := getValidatorAddress()
+		fmt.Println("Validator address:", validatorAddress)
+		validatorPubkey := getValidatorPubkey()
+		fmt.Println("Validator pubkey:", validatorPubkey)
+		accountAddress := getAccountAddress()
+		fmt.Println("Account address:", accountAddress)
+		os.Exit(0)
+		addGenesis(accountAddress, validatorAddress, validatorPubkey)
+		node(START)
+		stake(validatorAddress)
+		node(STOP)
+	*/
 }
