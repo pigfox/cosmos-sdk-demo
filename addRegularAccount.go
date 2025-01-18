@@ -29,7 +29,6 @@ func addRegularAccount() {
 }
 
 func parseAccountDetails(output string) {
-	var regularAccount RegularAccount
 	lines := strings.Split(output, "\n")
 
 	for _, line := range lines {

@@ -11,3 +11,8 @@ type RegularAccountPubKey struct {
 	Type string `json:"@type"`
 	Key  string `json:"key"`
 }
+
+type Validator struct {
+	Address string `json:"address"`
+	PubKey  string `json:"pub_key"`
+}
