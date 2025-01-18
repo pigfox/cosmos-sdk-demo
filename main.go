@@ -24,10 +24,11 @@ func main() {
 	tools()
 	addValidatorKey()
 	validatorAddress := getValidatorAddress()
+	fmt.Println("Validator address:", validatorAddress)
 	validatorPubkey := getValidatorPubkey()
 	accountAddress := getAccountAddress()
 	addGenesis(accountAddress, validatorPubkey)
 	node(START)
-	stake(validatorAddress)
+	//stake(validatorAddress)
 	node(STOP)
 }

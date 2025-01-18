@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -14,7 +15,7 @@ func stake(validatorAddress string) {
 	// Ensure the validator address has the correct 'cosmosvaloper' prefix
 	if !strings.HasPrefix(validatorAddress, "cosmosvaloper") {
 		fmt.Println("Error: Validator address is missing the correct 'cosmosvaloper' prefix.")
-		return
+		os.Exit(1)
 	}
 
 	// Construct the command
@@ -39,7 +40,7 @@ func stake(validatorAddress string) {
 	if err != nil {
 		fmt.Printf("Error delegating stake: %v\n", err)
 		fmt.Println(out.String())
-		return
+		os.Exit(1)
 	}
 
 	// Print the result

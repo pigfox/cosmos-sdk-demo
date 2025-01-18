@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"os/exec"
 )
 
@@ -20,7 +21,7 @@ func node(state string) {
 		if err != nil {
 			fmt.Printf("Error starting node: %v\n", err)
 			fmt.Println(out.String())
-			return
+			os.Exit(1)
 		}
 		fmt.Println("Node started successfully.")
 
@@ -38,7 +39,7 @@ func node(state string) {
 		if err != nil {
 			fmt.Printf("Error stopping node: %v\n", err)
 			fmt.Println(out.String())
-			return
+			os.Exit(1)
 		}
 		fmt.Println("Node stopped successfully.")
 
@@ -57,7 +58,7 @@ func node(state string) {
 	if err != nil {
 		fmt.Printf("Error querying node status: %v\n", err)
 		fmt.Println(out.String())
-		return
+		os.Exit(1)
 	}
 
 	// Print the node's status
