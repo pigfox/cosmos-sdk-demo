@@ -7,17 +7,6 @@ import (
 const (
 	START = "start"
 	STOP  = "stop"
-	/*
-		KEYRING_BACKEND = "test"
-		KEY_NAME        = "my-key"
-		CHAIN_ID        = "my-chain"
-		VALIDATOR_NAME  = "pigfox"
-		FEES            = "10000stake"
-		AMOUNT          = "500000stake"
-		GENESIS_PATH    = "/.simapp/config/genesis.json"
-		APP_HOME_DIR    = "./"
-	*/
-
 )
 
 var regularAccount RegularAccount
