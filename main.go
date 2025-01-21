@@ -17,10 +17,11 @@ func main() {
 	fmt.Println("Starting setup...")
 	clearSetup()
 	settings = newSettings()
+	fmt.Println("Settings:", settings)
 	simd()
 	tools()
-	addRegularAccount()
-	addValidatorAndKey()
+	//addRegularAccount()
+	//addValidatorAndKey()
 	/*
 		os.Exit(0)
 		addGenesis(accountAddress, validatorAddress, validatorPubkey)
@@ -28,19 +29,4 @@ func main() {
 		stake(validatorAddress)
 		node(STOP)
 	*/
-}
-
-func newSettings() Settings {
-	homeDir := getHomeDir()
-	fmt.Println("Home directory:", homeDir)
-	return Settings{
-		KeyringBackend: "test",
-		KeyName:        "my-key",
-		ChainID:        "my-chain",
-		ValidatorName:  "pigfox",
-		Fees:           "10000stake",
-		Amount:         "500000stake",
-		GenesisPath:    homeDir + "/.simapp/config/genesis.json",
-		AppHomeDir:     homeDir,
-	}
 }

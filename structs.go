@@ -27,3 +27,17 @@ type Settings struct {
 	GenesisPath    string `json:"genesis_path"`
 	AppHomeDir     string `json:"app_home_dir"`
 }
+
+func newSettings() Settings {
+	appHomeDir := getHomeDir() + "/.simapp"
+	return Settings{
+		KeyringBackend: "test",
+		KeyName:        "my-key",
+		ChainID:        "my-chain",
+		ValidatorName:  "pigfox",
+		Fees:           "10000stake",
+		Amount:         "500000stake",
+		GenesisPath:    appHomeDir + "/config/genesis.json",
+		AppHomeDir:     appHomeDir,
+	}
+}

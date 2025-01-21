@@ -10,13 +10,12 @@ import (
 )
 
 func addRegularAccount() {
-	fmt.Println("addAccount: Add a new account")
-	fmt.Println("KEY_NAME", settings.KeyName)
-	fmt.Println("KEYRING_BACKEND", settings.KeyringBackend)
+	fmt.Println("addRegularAccount()")
 
 	// Execute the simd command
 	cmd := exec.Command("simd", "keys", "add", settings.KeyName, "--home", settings.AppHomeDir, "--keyring-backend", settings.KeyringBackend)
 	output, err := cmd.CombinedOutput()
+	fmt.Println("Command Output:", string(output))
 	if err != nil {
 		fmt.Printf("Error executing command: %v\n", err)
 		os.Exit(1)
