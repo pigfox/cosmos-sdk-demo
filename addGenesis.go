@@ -28,12 +28,12 @@ func addGenesis(accountAddress, validatorAddress, pubkeyJSON string) {
 	fmt.Println("addGenesis: Create the genesis file")
 
 	// Define the target path for the genesis file
-	genesisFile := getHomeDir() + GENESIS_PATH
+	genesisFile := settings.GenesisPath
 
 	created := time.Now().UTC().Format(time.RFC3339Nano)
 	gp := GenesisParams{
 		createdTime:      created,
-		chainID:          CHAIN_ID,
+		chainID:          settings.ChainID,
 		address:          accountAddress,
 		pubKEY:           pubkeyJSON,
 		validatorAddress: validatorAddress,
@@ -109,8 +109,8 @@ func getGenesisJSON(gp GenesisParams) string {
 		os.Exit(1)
 	}
 
-	if gp.chainID != CHAIN_ID {
-		fmt.Println("Error: chainID is not correct, required: ", CHAIN_ID)
+	if gp.chainID != settings.ChainID {
+		fmt.Println("Error: chainID is not correct, required: ", settings.ChainID)
 		os.Exit(1)
 	}
 

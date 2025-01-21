@@ -11,7 +11,7 @@ import (
 func getAccountAddress() string {
 	fmt.Println("getAccountAddress: Getting account address")
 	// Prepare the simd command to fetch the address
-	cmd := exec.Command("simd", "keys", "show", KEY_NAME, "-a", "--home", APP_HOME_DIR, "--keyring-backend", KEYRING_BACKEND)
+	cmd := exec.Command("simd", "keys", "show", settings.KeyName, "-a", "--home", settings.AppHomeDir, "--keyring-backend", settings.KeyringBackend)
 
 	// Execute the command and capture the output
 	var out bytes.Buffer

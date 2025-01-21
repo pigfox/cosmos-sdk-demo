@@ -51,7 +51,7 @@ func deleteKeys() {
 	}
 
 	// Define the command to list keys in JSON format
-	cmd := exec.Command("simd", "keys", "list", "--home", APP_HOME_DIR, "--keyring-backend", KEYRING_BACKEND, "--output", "json")
+	cmd := exec.Command("simd", "keys", "list", "--home", settings.AppHomeDir, "--keyring-backend", settings.KeyringBackend, "--output", "json")
 
 	// Capture the output of the command
 	var out bytes.Buffer
@@ -79,7 +79,7 @@ func deleteKeys() {
 		fmt.Printf("Deleting key: %s\n", key)
 
 		// Define the command to delete the key
-		delCmd := exec.Command("simd", "keys", "delete", key, "--home", APP_HOME_DIR, "--keyring-backend", KEYRING_BACKEND, "-y")
+		delCmd := exec.Command("simd", "keys", "delete", key, "--home", settings.AppHomeDir, "--keyring-backend", settings.KeyringBackend, "-y")
 
 		// Capture the output of the delete command
 		var delOut bytes.Buffer
@@ -99,7 +99,7 @@ func deleteKeys() {
 
 	// List remaining keys
 	fmt.Println("Remaining keys:")
-	listCmd := exec.Command("simd", "keys", "list", "--home", APP_HOME_DIR, "--keyring-backend", KEYRING_BACKEND)
+	listCmd := exec.Command("simd", "keys", "list", "--home", settings.AppHomeDir, "--keyring-backend", settings.KeyringBackend)
 	listCmd.Stdout = &out
 	listCmd.Stderr = &out
 	_ = listCmd.Run()

@@ -20,14 +20,14 @@ func stake(validatorAddress string) {
 
 	// Construct the command
 	cmd := exec.Command(
-		"simd", "tx", "staking", "delegate", validatorAddress, AMOUNT,
-		"--from", KEY_NAME,
-		"--chain-id", CHAIN_ID,
-		"--home", APP_HOME_DIR,
-		"--keyring-backend", KEYRING_BACKEND,
+		"simd", "tx", "staking", "delegate", validatorAddress, settings.Amount,
+		"--from", settings.KeyName,
+		"--chain-id", settings.ChainID,
+		"--home", settings.AppHomeDir,
+		"--keyring-backend", settings.KeyringBackend,
 		"--broadcast-mode", "sync",
 		"--yes",
-		"--fees", FEES,
+		"--fees", settings.Fees,
 	)
 
 	// Capture the output of the command

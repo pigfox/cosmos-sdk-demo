@@ -15,12 +15,12 @@ func addValidatorAndKey() {
 	simdPath := getHomeDir() + "/.simapp" // Replace with actual path to simd binary
 	addKeyCmd := fmt.Sprintf(
 		"simd keys add %s --keyring-backend %s --key-type secp256k1 --no-backup --home %s --account %d --interactive=false --coin-type 118",
-		KEY_NAME, KEYRING_BACKEND, simdPath, 0,
+		settings.KeyName, settings.KeyringBackend, simdPath, 0,
 	)
 
 	fmt.Println("Adding key:", addKeyCmd)
 	cmd := exec.Command(addKeyCmd)
-	cmd.Dir = APP_HOME_DIR
+	cmd.Dir = settings.AppHomeDir
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf("failed to add key: %s\n", err)
@@ -32,12 +32,12 @@ func addValidatorAndKey() {
 	// Step 2: Create the validator using the provided parameters
 	createValidatorCmd := fmt.Sprintf(
 		"simd tx staking create-validator --amount=%s --pubkey=%s --moniker=%s --chain-id=%s --from=%s --fees=%s --gas=auto --yes",
-		AMOUNT, "cosmos-sdk", VALIDATOR_NAME, CHAIN_ID, KEY_NAME, FEES,
+		settings.Amount, "cosmos-sdk", settings.ValidatorName, settings.ChainID, settings.KeyName, settings.Fees,
 	)
 
 	fmt.Println("Creating validator:", createValidatorCmd)
 	cmd = exec.Command("bash", "-c", createValidatorCmd)
-	cmd.Dir = APP_HOME_DIR
+	cmd.Dir = settings.AppHomeDir
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf("failed to create validator: %s\n", err)
