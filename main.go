@@ -15,13 +15,12 @@ var settings Settings
 
 func main() {
 	fmt.Println("Starting setup...")
-	clearSetup()
 	settings = newSettings()
-	fmt.Println("Settings:", settings)
+	clearSetup()
 	simd()
 	tools()
-	//addRegularAccount()
-	//addValidatorAndKey()
+	addRegularAccount()
+	addValidatorAndKey() //<---bug
 	/*
 		os.Exit(0)
 		addGenesis(accountAddress, validatorAddress, validatorPubkey)
