@@ -22,6 +22,7 @@ type Settings struct {
 	KeyName        string `json:"key_name"`
 	ChainID        string `json:"chain_id"`
 	ValidatorName  string `json:"validator_name"`
+	ValidatorPath  string `json:"validator_path"`
 	Fees           string `json:"fees"`
 	Amount         string `json:"amount"`
 	GenesisPath    string `json:"genesis_path"`
@@ -35,6 +36,7 @@ func newSettings() Settings {
 		KeyName:        "my-key",
 		ChainID:        "my-chain",
 		ValidatorName:  "pigfox",
+		ValidatorPath:  appHomeDir + "/config/validator.json",
 		Fees:           "10000stake",
 		Amount:         "500000stake",
 		GenesisPath:    appHomeDir + "/config/genesis.json",

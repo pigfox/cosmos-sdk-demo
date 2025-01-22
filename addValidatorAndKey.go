@@ -41,17 +41,15 @@ func addValidatorAndKey() {
 	fmt.Println("Key added successfully:", string(output))
 
 	// Step 2: Create the validator using the provided parameters
-	createValidatorCmd := fmt.Sprintf(
-		"simd tx staking create-validator --amount=%s --pubkey=%s --moniker=%s --chain-id=%s --from=%s --fees=%s --gas=auto --yes",
-		settings.Amount, "cosmos-sdk", settings.ValidatorName, settings.ChainID, settings.KeyName, settings.Fees,
-	)
+	/*
+		Examples: $ simd tx staking create-validator path/to/validator.json --from keyname
+	*/
 
-	fmt.Println("Creating validator:", createValidatorCmd)
-	cmd = exec.Command("bash", "-c", createValidatorCmd)
-	cmd.Dir = settings.AppHomeDir
-	output, err = cmd.CombinedOutput()
+	fmt.Println("Creating validator:", settings.ValidatorPath)
+	cmd = exec.Command("simd", "tx", "staking", "create-validator", settings.ValidatorPath, "--from", settings.KeyName)
+	err = cmd.Run()
 	if err != nil {
-		fmt.Printf("failed to create validator: %s\n", err)
+		fmt.Printf("Failed to create validator: %s\n", err)
 		fmt.Printf("Command Output: %s\n", string(output))
 		os.Exit(1)
 	}
