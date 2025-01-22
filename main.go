@@ -22,15 +22,15 @@ func main() {
 	accountAddress := addRegularAccount()
 	fmt.Println("Regular account address:", accountAddress)
 	addRegularKey()
-	validatorAddress, validatorPubkey := addValidatorAndKey()
+	validatorAddress := addValidator()
 	fmt.Println("Validator address:", validatorAddress)
-	fmt.Println("Validator pubkey:", validatorPubkey)
-	addGenesis(accountAddress, validatorAddress, validatorPubkey)
-	/*
-		os.Exit(0)
 
-		node(START)
-		stake(validatorAddress)
-		node(STOP)
+	/*
+		addGenesis(accountAddress, validatorAddress, validatorPubkey)
+			os.Exit(0)
+
+			node(START)
+			stake(validatorAddress)
+			node(STOP)
 	*/
 }

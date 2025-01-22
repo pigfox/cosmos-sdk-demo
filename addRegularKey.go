@@ -22,8 +22,6 @@ func addRegularKey() {
 		"--output", "json",
 	}
 
-	fmt.Println("Adding key:", addKeyCmd)
-
 	cmd := exec.Command("simd", addKeyCmd...)
 	cmd.Stdin = bytes.NewReader([]byte("y\n"))
 
