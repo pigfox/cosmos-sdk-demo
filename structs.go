@@ -12,9 +12,16 @@ type RegularAccountPubKey struct {
 	Key  string `json:"key"`
 }
 
-type Validator struct {
+type PubKey struct {
+	Type string `json:"@type"`
+	Key  string `json:"key"`
+}
+
+type ValidatorKeyData struct {
+	Name    string `json:"name"`
+	Type    string `json:"type"`
 	Address string `json:"address"`
-	PubKey  string `json:"pub_key"`
+	Pubkey  string `json:"pubkey"`
 }
 
 type Settings struct {
@@ -36,7 +43,7 @@ func newSettings() Settings {
 		KeyName:        "my-key",
 		ChainID:        "my-chain",
 		ValidatorName:  "pigfox",
-		ValidatorPath:  appHomeDir + "/config/validator.json",
+		ValidatorPath:  appHomeDir + "/validator.json",
 		Fees:           "10000stake",
 		Amount:         "500000stake",
 		GenesisPath:    appHomeDir + "/config/genesis.json",

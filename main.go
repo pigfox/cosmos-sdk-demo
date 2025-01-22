@@ -10,7 +10,7 @@ const (
 )
 
 var regularAccount RegularAccount
-var validator Validator
+var validatorKeyData ValidatorKeyData
 var settings Settings
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	simd()
 	tools()
 	addRegularAccount()
-	addValidatorAndKey() //<---bug
+	addValidatorAndKey()
 	/*
 		os.Exit(0)
 		addGenesis(accountAddress, validatorAddress, validatorPubkey)

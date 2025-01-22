@@ -2,10 +2,10 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
-	"strings"
 )
 
 // AddValidatorAndKey adds a validator and the associated key based on the provided constants and stores the result in a Validator struct.
@@ -26,6 +26,7 @@ func addValidatorAndKey() {
 		"--home", settings.AppHomeDir,
 		"--no-backup",
 		"--log_level", "trace",
+		"--output", "json",
 	}
 
 	cmd := exec.Command("simd", addKeyCmd...)
@@ -42,42 +43,63 @@ func addValidatorAndKey() {
 
 	// Step 2: Create the validator using the provided parameters
 	/*
-		Examples: $ simd tx staking create-validator path/to/validator.json --from keyname
+		fmt.Println("Creating validator:", settings.ValidatorPath)
+		cmd = exec.Command("simd", "tx", "staking", "create-validator", settings.ValidatorPath, "--from", settings.KeyName)
+		err = cmd.Run()
+
+		if err != nil {
+			fmt.Printf("Failed to create validator: %s\n", err)
+			fmt.Printf("Command Output: %s\n", string(output))
+			os.Exit(1)
+		}
+
+		fmt.Println("Validator created successfully:", string(output))
 	*/
-
-	fmt.Println("Creating validator:", settings.ValidatorPath)
-	cmd = exec.Command("simd", "tx", "staking", "create-validator", settings.ValidatorPath, "--from", settings.KeyName)
-	err = cmd.Run()
+	err = json.Unmarshal([]byte(output), &validatorKeyData)
 	if err != nil {
-		fmt.Printf("Failed to create validator: %s\n", err)
-		fmt.Printf("Command Output: %s\n", string(output))
-		os.Exit(1)
-	}
-	fmt.Println("Validator created successfully:", string(output))
-
-	// Step 3: Extract the address and pubkey from the output
-	addressIndex := strings.Index(string(output), `"address":`)
-	pubKeyIndex := strings.Index(string(output), `"pubkey":`)
-	if addressIndex == -1 || pubKeyIndex == -1 {
-		fmt.Println("failed to extract address or pubkey from output")
-		fmt.Printf("Command Output: %s\n", string(output))
+		fmt.Printf("Error unmarshaling JSON: %v", err)
 		os.Exit(1)
 	}
 
-	// Extracting address and pubkey
-	addressStart := strings.Index(string(output)[addressIndex:], `"address":`) + len(`"address":`) + 1
-	addressEnd := strings.Index(string(output)[addressStart:], `"`) + addressStart
-	validator.Address = string(output)[addressStart:addressEnd]
-
-	pubKeyStart := strings.Index(string(output)[pubKeyIndex:], `"pubkey":`) + len(`"pubkey":`) + 1
-	pubKeyEnd := strings.Index(string(output)[pubKeyStart:], `"`) + pubKeyStart
-	validator.PubKey = string(output)[pubKeyStart:pubKeyEnd]
-
-	if validator.Address == "" || validator.PubKey == "" {
-		fmt.Println("failed to extract address or pubkey from output")
-		fmt.Printf("Command Output: %s\n", string(output))
+	// Step 2: Unmarshal the Pubkey JSON string into the PubKey struct
+	var pubKey PubKey
+	err = json.Unmarshal([]byte(validatorKeyData.Pubkey), &pubKey)
+	if err != nil {
+		fmt.Printf("Error unmarshaling Pubkey: %v", err)
 		os.Exit(1)
 	}
 
-	fmt.Println("Validator Details:", validator)
+	// Output the unmarshaled data
+	fmt.Printf("Key Data: %+v\n", validatorKeyData)
+	fmt.Printf("PubKey: %+v\n", pubKey)
+	createValidatorFile(validatorKeyData, pubKey)
+	fmt.Println("Validator Details:", validatorKeyData)
+
 }
+
+func createValidatorFile(validatorKeyData ValidatorKeyData, pubKey PubKey) {
+	// Create a validator file
+	validatorJSON := `{
+		"address": "` + validatorKeyData.Address + `",
+		"pub_key": {
+			"type": "` + pubKey.Type + `",
+			"value": "` + pubKey.Key + `"}`
+
+	err := os.WriteFile(settings.ValidatorPath, []byte(validatorJSON), 0644)
+	if err != nil {
+		fmt.Printf("Failed to write validator JSON file: %s\n", err)
+		os.Exit(1)
+	}
+}
+
+/*
+	validatorData := map[string]interface{}{
+		"name":     settings.ValidatorName,
+		"pubkey":   settings.ValidatorPubKey,
+		"amount":   settings.StakeAmount,
+		"moniker":  settings.ValidatorMoniker,
+		"chain-id": settings.ChainID,
+		"fees":     settings.Fees,
+		"gas":      "auto",
+	}
+*/
