@@ -21,7 +21,9 @@ func main() {
 	tools()
 	accountAddress := addRegularAccount()
 	fmt.Println("Regular account address:", accountAddress)
-	addValidatorAndKey()
+	validatorAddress, validatorPubkey := addValidatorAndKey()
+	fmt.Println("Validator address:", validatorAddress)
+	fmt.Println("Validator pubkey:", validatorPubkey)
 	//addGenesis(accountAddress, validatorAddress, validatorPubkey)
 	/*
 		os.Exit(0)

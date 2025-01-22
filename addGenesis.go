@@ -16,9 +16,14 @@ type PubKeyData struct {
 	Key  string `json:"key"`
 }
 
-func addGenesis(accountAddress, validatorAddress, pubkeyJSON string) {
+func addGenesis(accountAddress, validatorAddress string, pubkey PubKey) {
 	fmt.Println("addGenesis: Create the genesis file")
 
+	pubkeyJSON, err := json.Marshal(pubkey)
+	if err != nil {
+		fmt.Println("Error: Failed to marshal pubkey:", whereami.WhereAmI(), err)
+		os.Exit(1)
+	}
 	// Define the target path for the genesis file
 	genesisFile := settings.GenesisPath
 
@@ -27,7 +32,7 @@ func addGenesis(accountAddress, validatorAddress, pubkeyJSON string) {
 		CreatedTime:      created,
 		ChainID:          settings.ChainID,
 		Address:          accountAddress,
-		PubKEY:           pubkeyJSON,
+		PubKEY:           string(pubkeyJSON),
 		ValidatorAddress: validatorAddress,
 	}
 	fmt.Println("accountAddress", accountAddress)
@@ -36,7 +41,7 @@ func addGenesis(accountAddress, validatorAddress, pubkeyJSON string) {
 	genesisJson := getGenesisJSON(gp)
 
 	// Write the updated data to the target genesis file location
-	err := os.WriteFile(genesisFile, []byte(genesisJson), 0644)
+	err = os.WriteFile(genesisFile, []byte(genesisJson), 0644)
 	if err != nil {
 		fmt.Println("Error: Failed to write updated genesis file:", whereami.WhereAmI(), err)
 		os.Exit(1)

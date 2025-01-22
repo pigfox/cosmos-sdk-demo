@@ -9,16 +9,10 @@ import (
 )
 
 // AddValidatorAndKey adds a validator and the associated key based on the provided constants and stores the result in a Validator struct.
-func addValidatorAndKey() {
+func addValidatorAndKey() (string, PubKey) {
 	fmt.Println("addValidatorAndKey: Add a new validator and key")
 	fmt.Println(settings)
-	/*
-		simd keys add my-key --keyring-backend file --home /home/peter/.simapp
-		Enter keyring passphrase (attempt 1/3):
-		password must be at least 8 characters
-		Enter keyring passphrase (attempt 2/3):
-		Re-enter keyring passphrase:
-	*/
+
 	// Step 1: Add the key to the keyring
 	addKeyCmd := []string{
 		"keys", "add", settings.KeyName,
@@ -74,7 +68,7 @@ func addValidatorAndKey() {
 	fmt.Printf("PubKey: %+v\n", pubKey)
 	createValidatorFile(validatorKeyData, pubKey)
 	fmt.Println("Validator Details:", validatorKeyData)
-
+	return validatorKeyData.Address, pubKey
 }
 
 func createValidatorFile(validatorKeyData ValidatorKeyData, pubKey PubKey) {
