@@ -24,7 +24,7 @@ func main() {
 	validatorAddress, validatorPubkey := addValidatorAndKey()
 	fmt.Println("Validator address:", validatorAddress)
 	fmt.Println("Validator pubkey:", validatorPubkey)
-	//addGenesis(accountAddress, validatorAddress, validatorPubkey)
+	addGenesis(accountAddress, validatorAddress, validatorPubkey)
 	/*
 		os.Exit(0)
 
