@@ -24,13 +24,16 @@ func main() {
 	addRegularKey()
 	validatorAddress := addValidator()
 	fmt.Println("Validator address:", validatorAddress)
-
+	validatorPubKey := getValidatorPubKey()
+	fmt.Println("Validator pubkey:", validatorPubKey)
+	//node(START)
 	/*
 		addGenesis(accountAddress, validatorAddress, validatorPubkey)
 			os.Exit(0)
 
 			node(START)
 			stake(validatorAddress)
-			node(STOP)
+
 	*/
+	//node(STOP)
 }

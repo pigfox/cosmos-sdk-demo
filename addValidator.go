@@ -38,8 +38,6 @@ func addValidator() string {
 		fmt.Println("Key added successfully:", string(output))
 	*/
 	// Step 2: Create the validator using the provided parameters
-
-	fmt.Println("Creating validator:", settings.ValidatorPath)
 	addValidatorCmd := []string{
 		"keys", "show", settings.KeyName,
 		"--keyring-backend", settings.KeyringBackend,
