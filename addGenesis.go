@@ -10,14 +10,6 @@ import (
 	"github.com/jimlawless/whereami"
 )
 
-type GenesisParams struct {
-	createdTime      string
-	chainID          string
-	address          string
-	pubKEY           string
-	validatorAddress string
-}
-
 // Struct to represent the expected PubKeyData JSON structure
 type PubKeyData struct {
 	Type string `json:"@type"`
@@ -32,11 +24,11 @@ func addGenesis(accountAddress, validatorAddress, pubkeyJSON string) {
 
 	created := time.Now().UTC().Format(time.RFC3339Nano)
 	gp := GenesisParams{
-		createdTime:      created,
-		chainID:          settings.ChainID,
-		address:          accountAddress,
-		pubKEY:           pubkeyJSON,
-		validatorAddress: validatorAddress,
+		CreatedTime:      created,
+		ChainID:          settings.ChainID,
+		Address:          accountAddress,
+		PubKEY:           pubkeyJSON,
+		ValidatorAddress: validatorAddress,
 	}
 	fmt.Println("accountAddress", accountAddress)
 	fmt.Printf("+%v\n", gp)
@@ -55,10 +47,10 @@ func addGenesis(accountAddress, validatorAddress, pubkeyJSON string) {
 }
 
 func getGenesisJSON(gp GenesisParams) string {
-	fmt.Println("address:", gp.address)
+	fmt.Println("address:", gp.Address)
 	regex := `^cosmos1[a-z0-9]{38}$`
 	// Validate the address
-	matched, err := regexp.MatchString(regex, gp.address)
+	matched, err := regexp.MatchString(regex, gp.Address)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 		os.Exit(1)
@@ -66,12 +58,12 @@ func getGenesisJSON(gp GenesisParams) string {
 
 	if !matched {
 		fmt.Println("Error: address is not in the correct format", whereami.WhereAmI())
-		fmt.Println("address:", gp.address)
+		fmt.Println("address:", gp.Address)
 		os.Exit(1)
 	}
 
 	regex = `^cosmosvaloper1[a-z0-9]{38}$`
-	matched, err = regexp.MatchString(regex, gp.validatorAddress)
+	matched, err = regexp.MatchString(regex, gp.ValidatorAddress)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 		os.Exit(1)
@@ -79,12 +71,12 @@ func getGenesisJSON(gp GenesisParams) string {
 
 	if !matched {
 		fmt.Println("Error: validator address is not in the correct format", whereami.WhereAmI())
-		fmt.Println("validatorAddress:", gp.validatorAddress)
+		fmt.Println("validatorAddress:", gp.ValidatorAddress)
 		os.Exit(1)
 	}
 
 	var data PubKeyData
-	err = json.Unmarshal([]byte(gp.pubKEY), &data)
+	err = json.Unmarshal([]byte(gp.PubKEY), &data)
 	if err != nil {
 		fmt.Println("Invalid JSON format:", whereami.WhereAmI(), err)
 		os.Exit(1)
@@ -109,20 +101,20 @@ func getGenesisJSON(gp GenesisParams) string {
 		os.Exit(1)
 	}
 
-	if gp.chainID != settings.ChainID {
+	if gp.ChainID != settings.ChainID {
 		fmt.Println("Error: chainID is not correct, required: ", settings.ChainID)
 		os.Exit(1)
 	}
 
 	regex = `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{8,9}Z$` // vaild time format: 2025-01-17T02:42:28.062004646Z
-	matched, err = regexp.MatchString(regex, gp.createdTime)
+	matched, err = regexp.MatchString(regex, gp.CreatedTime)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 		os.Exit(1)
 	}
 
 	if !matched {
-		fmt.Println("Given createdTime:", gp.createdTime)
+		fmt.Println("Given createdTime:", gp.CreatedTime)
 		fmt.Println("Error: createdTime is not in the correct format")
 		os.Exit(1)
 	}
@@ -130,8 +122,8 @@ func getGenesisJSON(gp GenesisParams) string {
 	return `{
   "app_name": "simd",
   "app_version": "0.50.6",
-  "genesis_time": "` + gp.createdTime + `",
-  "chain_id": "` + gp.chainID + `",
+  "genesis_time": "` + gp.CreatedTime + `",
+  "chain_id": "` + gp.ChainID + `",
   "initial_height": 1,
   "app_hash": null,
   "app_state": {
@@ -146,7 +138,7 @@ func getGenesisJSON(gp GenesisParams) string {
       "accounts": [
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "` + gp.address + `",
+          "address": "` + gp.Address + `",
           "pub_key": {
             "@type": "` + data.Type + `",
             "key": "` + data.Key + `"
@@ -166,7 +158,7 @@ func getGenesisJSON(gp GenesisParams) string {
       },
       "balances": [
         {
-          "address": "` + gp.address + `",
+          "address": "` + gp.Address + `",
           "coins": [
             {
               "denom": "stake",

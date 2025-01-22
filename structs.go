@@ -24,6 +24,14 @@ type ValidatorKeyData struct {
 	Pubkey  string `json:"pubkey"`
 }
 
+type GenesisParams struct {
+	CreatedTime      string
+	ChainID          string
+	Address          string
+	PubKEY           string
+	ValidatorAddress string
+}
+
 type Settings struct {
 	KeyringBackend string `json:"keyring_backend"`
 	KeyName        string `json:"key_name"`
