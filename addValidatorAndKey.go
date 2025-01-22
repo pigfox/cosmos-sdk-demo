@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
@@ -10,20 +11,30 @@ import (
 // AddValidatorAndKey adds a validator and the associated key based on the provided constants and stores the result in a Validator struct.
 func addValidatorAndKey() {
 	fmt.Println("addValidatorAndKey: Add a new validator and key")
-
+	fmt.Println(settings)
+	/*
+		simd keys add my-key --keyring-backend file --home /home/peter/.simapp
+		Enter keyring passphrase (attempt 1/3):
+		password must be at least 8 characters
+		Enter keyring passphrase (attempt 2/3):
+		Re-enter keyring passphrase:
+	*/
 	// Step 1: Add the key to the keyring
-	simdPath := getHomeDir() + "/.simapp" // Replace with actual path to simd binary
-	addKeyCmd := fmt.Sprintf(
-		"simd keys add %s --keyring-backend %s --key-type secp256k1 --no-backup --home %s --account %d --interactive=false --coin-type 118",
-		settings.KeyName, settings.KeyringBackend, simdPath, 0,
-	)
+	addKeyCmd := []string{
+		"keys", "add", settings.KeyName,
+		"--keyring-backend", settings.KeyringBackend,
+		"--home", settings.AppHomeDir,
+		"--no-backup",
+		"--log_level", "trace",
+	}
 
-	fmt.Println("Adding key:", addKeyCmd)
-	cmd := exec.Command(addKeyCmd)
-	cmd.Dir = settings.AppHomeDir
+	cmd := exec.Command("simd", addKeyCmd...)
+	cmd.Stdin = bytes.NewReader([]byte("y\n"))
+
+	// Capture combined output (stdout + stderr)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("failed to add key: %s\n", err)
+		fmt.Printf("Failed to add key: %s\n", err)
 		fmt.Printf("Command Output: %s\n", string(output))
 		os.Exit(1)
 	}
