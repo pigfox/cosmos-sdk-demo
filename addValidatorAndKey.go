@@ -55,6 +55,17 @@ func addValidatorAndKey() (string, PubKey) {
 		os.Exit(1)
 	}
 
+	/*
+		$ (main) simd keys show my-key --keyring-backend test --home /home/peter/.simapp --address
+		cosmos1rk2uueefpfzajrvjtaxerqclhz2aery4qa45cz
+
+		$ (main) simd keys show my-key --keyring-backend test --home /home/peter/.simapp --bech val --address
+		cosmosvaloper1rk2uueefpfzajrvjtaxerqclhz2aery49fpp53
+
+		$ (main) simd query staking validator cosmos1rk2uueefpfzajrvjtaxerqclhz2aery4qa45cz
+		post failed: Post "http://localhost:26657": dial tcp 127.0.0.1:26657: connect: connection refused
+	*/
+
 	// Step 2: Unmarshal the Pubkey JSON string into the PubKey struct
 	var pubKey PubKey
 	err = json.Unmarshal([]byte(validatorKeyData.Pubkey), &pubKey)
