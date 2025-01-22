@@ -1,60 +1,61 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
-	"os/exec"
 )
 
 // AddValidatorAndKey adds a validator and the associated key based on the provided constants and stores the result in a Validator struct.
 func addValidatorAndKey() (string, PubKey) {
-	fmt.Println("addValidatorAndKey: Add a new validator and key")
-	fmt.Println(settings)
-
-	// Step 1: Add the key to the keyring
-	addKeyCmd := []string{
-		"keys", "add", settings.KeyName,
-		"--keyring-backend", settings.KeyringBackend,
-		"--home", settings.AppHomeDir,
-		"--no-backup",
-		"--log_level", "trace",
-		"--output", "json",
-	}
-
-	cmd := exec.Command("simd", addKeyCmd...)
-	cmd.Stdin = bytes.NewReader([]byte("y\n"))
-
-	// Capture combined output (stdout + stderr)
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Printf("Failed to add key: %s\n", err)
-		fmt.Printf("Command Output: %s\n", string(output))
-		os.Exit(1)
-	}
-	fmt.Println("Key added successfully:", string(output))
-
-	// Step 2: Create the validator using the provided parameters
 	/*
-		fmt.Println("Creating validator:", settings.ValidatorPath)
-		cmd = exec.Command("simd", "tx", "staking", "create-validator", settings.ValidatorPath, "--from", settings.KeyName)
-		err = cmd.Run()
+		fmt.Println("addValidatorAndKey: Add a new validator and key")
+		fmt.Println(settings)
 
+		// Step 1: Add the key to the keyring
+		addKeyCmd := []string{
+			"keys", "add", settings.KeyName,
+			"--keyring-backend", settings.KeyringBackend,
+			"--home", settings.AppHomeDir,
+			"--no-backup",
+			"--log_level", "trace",
+			"--output", "json",
+		}
+
+		fmt.Println("Adding key:", addKeyCmd)
+
+		cmd := exec.Command("simd", addKeyCmd...)
+		cmd.Stdin = bytes.NewReader([]byte("y\n"))
+
+		// Capture combined output (stdout + stderr)
+		output, err := cmd.CombinedOutput()
 		if err != nil {
-			fmt.Printf("Failed to create validator: %s\n", err)
+			fmt.Printf("Failed to add key: %s\n", err)
 			fmt.Printf("Command Output: %s\n", string(output))
 			os.Exit(1)
 		}
+		fmt.Println("Key added successfully:", string(output))
 
-		fmt.Println("Validator created successfully:", string(output))
+		// Step 2: Create the validator using the provided parameters
+		/*
+			fmt.Println("Creating validator:", settings.ValidatorPath)
+			cmd = exec.Command("simd", "tx", "staking", "create-validator", settings.ValidatorPath, "--from", settings.KeyName)
+			err = cmd.Run()
+
+			if err != nil {
+				fmt.Printf("Failed to create validator: %s\n", err)
+				fmt.Printf("Command Output: %s\n", string(output))
+				os.Exit(1)
+			}
+
+			fmt.Println("Validator created successfully:", string(output))
+
+		err := json.Unmarshal([]byte(output), &validatorKeyData)
+		if err != nil {
+			fmt.Printf("Error unmarshaling JSON: %v", err)
+			os.Exit(1)
+		}
 	*/
-	err = json.Unmarshal([]byte(output), &validatorKeyData)
-	if err != nil {
-		fmt.Printf("Error unmarshaling JSON: %v", err)
-		os.Exit(1)
-	}
-
 	/*
 		$ (main) simd keys show my-key --keyring-backend test --home /home/peter/.simapp --address
 		cosmos1rk2uueefpfzajrvjtaxerqclhz2aery4qa45cz
@@ -68,7 +69,7 @@ func addValidatorAndKey() (string, PubKey) {
 
 	// Step 2: Unmarshal the Pubkey JSON string into the PubKey struct
 	var pubKey PubKey
-	err = json.Unmarshal([]byte(validatorKeyData.Pubkey), &pubKey)
+	err := json.Unmarshal([]byte(validatorKeyData.Pubkey), &pubKey)
 	if err != nil {
 		fmt.Printf("Error unmarshaling Pubkey: %v", err)
 		os.Exit(1)
