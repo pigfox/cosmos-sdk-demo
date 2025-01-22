@@ -25,11 +25,11 @@ type ValidatorKeyData struct {
 }
 
 type GenesisParams struct {
-	CreatedTime      string
-	ChainID          string
-	Address          string
-	PubKEY           string
-	ValidatorAddress string
+	CreatedTime      string `json:"created_time"`
+	ChainID          string `json:"chain_id"`
+	Address          string `json:"address"`
+	PubKEY           string `json:"pub_key"`
+	ValidatorAddress string `json:"validator_address"`
 }
 
 type Settings struct {

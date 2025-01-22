@@ -19,11 +19,13 @@ func main() {
 	clearSetup()
 	simd()
 	tools()
-	addRegularAccount()
+	accountAddress := addRegularAccount()
+	fmt.Println("Regular account address:", accountAddress)
 	addValidatorAndKey()
+	//addGenesis(accountAddress, validatorAddress, validatorPubkey)
 	/*
 		os.Exit(0)
-		addGenesis(accountAddress, validatorAddress, validatorPubkey)
+
 		node(START)
 		stake(validatorAddress)
 		node(STOP)

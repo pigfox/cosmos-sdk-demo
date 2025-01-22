@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func addRegularAccount() {
+func addRegularAccount() string {
 	fmt.Println("addRegularAccount()")
 
 	// Execute the simd command
@@ -24,10 +24,10 @@ func addRegularAccount() {
 	// Print the output from the command
 	//fmt.Println("Key details:")
 	fmt.Println(string(output))
-	parseAccountDetails(string(output))
+	return parseAccountDetails(string(output))
 }
 
-func parseAccountDetails(output string) {
+func parseAccountDetails(output string) string {
 	lines := strings.Split(output, "\n")
 
 	for _, line := range lines {
@@ -71,6 +71,7 @@ func parseAccountDetails(output string) {
 
 	// Output the parsed regular account
 	fmt.Printf("Parsed Account: %+v\n", regularAccount)
+	return regularAccount.Address
 }
 
 func printStructFields(s interface{}) {
