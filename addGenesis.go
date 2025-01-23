@@ -16,7 +16,7 @@ type PubKeyData struct {
 	Key  string `json:"key"`
 }
 
-func addGenesis(accountAddress, validatorAddress string, validatorPubkey ValidatorKeyData) {
+func addGenesis(accountAddress, validatorAddress string, validatorPubkey PubKey) {
 	fmt.Println("addGenesis: Create the genesis file")
 
 	// Define the target path for the genesis file
@@ -27,7 +27,7 @@ func addGenesis(accountAddress, validatorAddress string, validatorPubkey Validat
 		CreatedTime:      created,
 		ChainID:          settings.ChainID,
 		Address:          accountAddress,
-		PubKEY:           validatorPubkey.Pubkey,
+		PubKEY:           validatorPubkey.Key,
 		ValidatorAddress: validatorAddress,
 	}
 	fmt.Println("accountAddress", accountAddress)
@@ -62,7 +62,7 @@ func getGenesisJSON(gp GenesisParams) string {
 		os.Exit(1)
 	}
 
-	regex = `^cosmosvaloper1[a-z0-9]{39}$`
+	regex = `^cosmosvaloper1[a-z0-9]{38}$`
 	matched, err = regexp.MatchString(regex, gp.ValidatorAddress)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)

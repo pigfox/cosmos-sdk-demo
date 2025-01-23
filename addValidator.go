@@ -1,76 +1,90 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 // AddValidatorAndKey adds a validator and the associated key based on the provided constants and stores the result in a Validator struct.
-func addValidator() string {
+func addValidator() (string, string) {
 	fmt.Println("addValidator()")
-	/*
-		fmt.Println("addValidatorAndKey: Add a new validator and key")
-		fmt.Println(settings)
 
-		// Step 1: Add the key to the keyring
-		addKeyCmd := []string{
-			"keys", "add", settings.KeyName,
-			"--keyring-backend", settings.KeyringBackend,
-			"--home", settings.AppHomeDir,
-			"--no-backup",
-			"--log_level", "trace",
-			"--output", "json",
+	// Step 1: Validate the key exists
+	validateKeyCmd := []string{
+		"keys", "list",
+		"--keyring-backend", settings.KeyringBackend,
+		"--home", settings.AppHomeDir,
+		"--output", "json",
+	}
+	fmt.Println("Validating key existence with command:", validateKeyCmd)
+	cmd := exec.Command("simd", validateKeyCmd...)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Failed to list keys: %s\n", err)
+		fmt.Printf("Command Output: %s\n", string(output))
+		os.Exit(1)
+	}
+
+	var keys []map[string]interface{}
+	if err := json.Unmarshal(output, &keys); err != nil {
+		fmt.Printf("Failed to parse key list: %s\n", err)
+		os.Exit(1)
+	}
+
+	keyExists := false
+	for _, key := range keys {
+		if key["name"] == settings.KeyName {
+			keyExists = true
+			break
 		}
+	}
 
-		fmt.Println("Adding key:", addKeyCmd)
+	if !keyExists {
+		fmt.Printf("Key '%s' not found in the keyring.\n", settings.KeyName)
+		os.Exit(1)
+	}
 
-		cmd := exec.Command("simd", addKeyCmd...)
-		cmd.Stdin = bytes.NewReader([]byte("y\n"))
-
-		// Capture combined output (stdout + stderr)
-		output, err := cmd.CombinedOutput()
-		if err != nil {
-			fmt.Printf("Failed to add key: %s\n", err)
-			fmt.Printf("Command Output: %s\n", string(output))
-			os.Exit(1)
-		}
-		fmt.Println("Key added successfully:", string(output))
-	*/
-	// Step 2: Create the validator using the provided parameters
+	// Step 2: Fetch the regular account address
 	addValidatorCmd := []string{
+		"keys", "show", settings.KeyName,
+		"--keyring-backend", settings.KeyringBackend,
+		"--home", settings.AppHomeDir,
+		"--address",
+	}
+	fmt.Println("Fetching regular account address with command:", addValidatorCmd)
+	cmd = exec.Command("simd", addValidatorCmd...)
+	output, err = cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Failed to fetch regular account address: %s\n", err)
+		fmt.Printf("Command Output: %s\n", string(output))
+		os.Exit(1)
+	}
+	accountAddress := strings.TrimSpace(string(output))
+	fmt.Println("Regular account address fetched:", accountAddress)
+
+	// Step 3: Fetch the validator address
+	addValidatorCmd = []string{
 		"keys", "show", settings.KeyName,
 		"--keyring-backend", settings.KeyringBackend,
 		"--home", settings.AppHomeDir,
 		"--bech", "val",
 		"--address",
 	}
-	fmt.Println("addValidatorCmd:", addValidatorCmd)
-	//$ (main) simd keys show my-key --keyring-backend test --home /home/peter/.simapp --bech val --address
-	//cmd := exec.Command("simd", "tx", "staking", "create-validator", settings.ValidatorPath, "--from", settings.KeyName)
-	cmd := exec.Command("simd", addValidatorCmd...)
-	output, err := cmd.CombinedOutput()
+	fmt.Println("Fetching validator address with command:", addValidatorCmd)
+	cmd = exec.Command("simd", addValidatorCmd...)
+	output, err = cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("Failed to create validator: %s\n", err)
+		fmt.Printf("Failed to fetch validator address: %s\n", err)
 		fmt.Printf("Command Output: %s\n", string(output))
 		os.Exit(1)
 	}
+	validatorAddress := strings.TrimSpace(string(output))
+	fmt.Println("Validator address fetched:", validatorAddress)
 
-	validatorAddress := string(output)
-
-	fmt.Println("Validator created successfully:", validatorAddress)
-
-	/*
-		$ (main) simd keys show my-key --keyring-backend test --home /home/peter/.simapp --address
-		cosmos1rk2uueefpfzajrvjtaxerqclhz2aery4qa45cz
-
-		$ (main) simd keys show my-key --keyring-backend test --home /home/peter/.simapp --bech val --address
-		cosmosvaloper1rk2uueefpfzajrvjtaxerqclhz2aery49fpp53
-
-		$ (main) simd query staking validator cosmos1rk2uueefpfzajrvjtaxerqclhz2aery4qa45cz
-		post failed: Post "http://localhost:26657": dial tcp 127.0.0.1:26657: connect: connection refused
-	*/
-	return validatorAddress
+	return accountAddress, validatorAddress
 }
 
 func createValidatorFile(validatorKeyData ValidatorKeyData, pubKey PubKey) {
