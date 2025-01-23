@@ -8,9 +8,9 @@ import (
 )
 
 func reset() {
+	clear()
 	fmt.Println("Reset the blockchain")
 
-	// Remove old data directory
 	dir := settings.AppHomeDir
 	err := os.RemoveAll(dir)
 	if err != nil {
@@ -29,4 +29,11 @@ func reset() {
 		os.Exit(1)
 	}
 	fmt.Println("Blockchain reset successfully!")
+}
+
+func clear() {
+	fmt.Println("Clearing the screen...")
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
