@@ -28,7 +28,7 @@ type GenesisParams struct {
 	CreatedTime      string `json:"created_time"`
 	ChainID          string `json:"chain_id"`
 	Address          string `json:"address"`
-	PubKEY           string `json:"pub_key"`
+	PubKEY           PubKey `json:"pub_key"`
 	ValidatorAddress string `json:"validator_address"`
 }
 

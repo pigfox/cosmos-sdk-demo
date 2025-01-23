@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"regexp"
@@ -10,12 +9,14 @@ import (
 	"github.com/jimlawless/whereami"
 )
 
+/*
 // Struct to represent the expected PubKeyData JSON structure
-type PubKeyData struct {
-	Type string `json:"@type"`
-	Key  string `json:"key"`
-}
 
+	type PubKeyData struct {
+		Type string `json:"@type"`
+		Key  string `json:"key"`
+	}
+*/
 func addGenesis(accountAddress, validatorAddress string, validatorPubkey PubKey) {
 	fmt.Println("addGenesis: Create the genesis file")
 
@@ -27,7 +28,7 @@ func addGenesis(accountAddress, validatorAddress string, validatorPubkey PubKey)
 		CreatedTime:      created,
 		ChainID:          settings.ChainID,
 		Address:          accountAddress,
-		PubKEY:           validatorPubkey.Key,
+		PubKEY:           validatorPubkey,
 		ValidatorAddress: validatorAddress,
 	}
 	fmt.Println("accountAddress", accountAddress)
@@ -75,22 +76,12 @@ func getGenesisJSON(gp GenesisParams) string {
 		os.Exit(1)
 	}
 
-	var data PubKeyData
-	err = json.Unmarshal([]byte(gp.PubKEY), &data)
-	if err != nil {
-		fmt.Println("Invalid JSON format:", whereami.WhereAmI(), err)
-		os.Exit(1)
-	}
-
-	// Validate "@type" field
-	if data.Type != "/cosmos.crypto.ed25519.PubKey" {
-		fmt.Println("Invalid type:", data.Type)
-		os.Exit(1)
-	}
+	fmt.Printf("+%v", gp)
+	fmt.Println("gp.PubKEY.Key", gp.PubKEY.Key)
 
 	// Regex to validate the "key" field as base64 encoded string with padding
 	keyRegex := `^[a-zA-Z0-9+/]{43}=$`
-	matched, err = regexp.MatchString(keyRegex, data.Key)
+	matched, err = regexp.MatchString(keyRegex, gp.PubKEY.Key)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 		os.Exit(1)
@@ -140,8 +131,8 @@ func getGenesisJSON(gp GenesisParams) string {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
           "address": "` + gp.Address + `",
           "pub_key": {
-            "@type": "` + data.Type + `",
-            "key": "` + data.Key + `"
+            "@type": "` + gp.PubKEY.Type + `",
+            "key": "` + gp.PubKEY.Key + `"
           },
           "account_number": "0",
           "sequence": "0"
