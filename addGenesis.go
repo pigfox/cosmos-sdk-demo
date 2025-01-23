@@ -76,11 +76,8 @@ func getGenesisJSON(gp GenesisParams) string {
 		os.Exit(1)
 	}
 
-	fmt.Printf("+%v", gp)
-	fmt.Println("gp.PubKEY.Key", gp.PubKEY.Key)
-
 	// Regex to validate the "key" field as base64 encoded string with padding
-	keyRegex := `^[a-zA-Z0-9+/]{43}=$`
+	keyRegex := `^[A-Za-z0-9+/]+={0,2}$`
 	matched, err = regexp.MatchString(keyRegex, gp.PubKEY.Key)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
@@ -88,7 +85,8 @@ func getGenesisJSON(gp GenesisParams) string {
 	}
 
 	if !matched {
-		fmt.Println("Valid PubKey format.")
+		fmt.Println("Invalid PubKey match.")
+		fmt.Println("Given PubKey:", gp.PubKEY.Key)
 		os.Exit(1)
 	}
 
