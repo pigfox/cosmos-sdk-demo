@@ -25,6 +25,7 @@ func clearSetup() {
 
 	fmt.Println("Blockchain reset successfully!")
 	deleteKeys()
+	removeGenesis()
 }
 
 // clear clears the terminal screen
@@ -44,7 +45,7 @@ func deleteKeys() {
 	fmt.Println("Step 0b: Deleting all keys")
 
 	// Remove all files in the keyring-test directory
-	err := os.RemoveAll("keyring-test/*")
+	err := os.RemoveAll(settings.AppHomeDir + "/keyring-test/*")
 	if err != nil {
 		fmt.Printf("Error clearing keyring-test directory: %v\n", err)
 		return
@@ -119,4 +120,14 @@ func parseKeyNames(jsonOutput string) []string {
 	}
 
 	return keyNames
+}
+
+func removeGenesis() {
+	genesisFile := settings.GenesisPath
+	err := os.Remove(genesisFile)
+	if err != nil {
+		fmt.Printf("Failed to remove genesis file: %v\n", err)
+		os.Exit(1)
+	}
+	fmt.Println("Genesis file removed successfully!")
 }
