@@ -53,8 +53,8 @@ func getValidatorPubKey(address string) ValidatorKeyData {
 	}
 
 	// If no validator matches the address, exit with an error
-	fmt.Printf("No validator found with address: %s\n", address)
 	if !found {
+		fmt.Printf("No validator found with address: %s\n", address)
 		os.Exit(1)
 	}
 
