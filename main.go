@@ -24,6 +24,7 @@ func main() {
 	validatorPubKey := getValidatorPubKey(accountAddress)
 	fmt.Println("Validator public key:", validatorPubKey)
 	addGenesis(accountAddress, validatorAddress, validatorPubKey)
+	createValidatorFile(validatorAddress, validatorPubKey.Key)
 	/*
 		node(START)
 		stake(validatorAddress)

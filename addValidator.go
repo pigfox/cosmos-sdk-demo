@@ -87,7 +87,7 @@ func addValidator() (string, string) {
 	return accountAddress, validatorAddress
 }
 
-func createValidatorFile(validatorAddress, pubKey string) error {
+func createValidatorFile(validatorAddress, pubKey string) {
 	// Create the validator data structure
 	validator := ValidatorFile{
 		Name:        settings.ValidatorName,
@@ -100,20 +100,22 @@ func createValidatorFile(validatorAddress, pubKey string) error {
 	// Serialize the validator data to JSON
 	data, err := json.MarshalIndent(validator, "", "  ")
 	if err != nil {
-		return fmt.Errorf("failed to marshal validator data: %w", err)
+		fmt.Printf("failed to marshal validator data: %s", err)
+		os.Exit(1)
 	}
 
 	// Write the JSON data to a file
 	file, err := os.Create(settings.ValidatorPath)
 	if err != nil {
-		return fmt.Errorf("failed to create file: %w", err)
+		fmt.Printf("failed to create file: %s", err)
+		os.Exit(1)
 	}
 	defer file.Close()
 
 	if _, err := file.Write(data); err != nil {
-		return fmt.Errorf("failed to write to file: %w", err)
+		fmt.Printf("failed to write to file: %s", err)
+		os.Exit(1)
 	}
 
 	fmt.Printf("Validator file created successfully: %s\n", settings.ValidatorPath)
-	return nil
 }
