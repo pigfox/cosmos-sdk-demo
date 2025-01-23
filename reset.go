@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 )
 
 func reset() {
@@ -21,9 +22,9 @@ func reset() {
 		settings.Moniker,
 		"--home", settings.AppHomeDir,
 	}
-	out, err := runCommand(initCmd)
+	out, err := simdCmd(initCmd)
 	if err != nil {
-		fmt.Printf("Failed to reset blockchain: %v\nOutput: %s", err, out.String())
+		fmt.Printf("Failed to reset blockchain: %v\nOutput: %s", err, out)
 		os.Exit(1)
 	}
 	fmt.Println("Blockchain reset successfully!")
@@ -31,10 +32,7 @@ func reset() {
 
 func clear() {
 	fmt.Println("Clearing the screen...")
-	clrCmd := []string{"clear"}
-	out, err := runCommand(clrCmd)
-	if err != nil {
-		fmt.Printf("Failed to reset blockchain: %v\nOutput: %s", err, out.String())
-		os.Exit(1)
-	}
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
