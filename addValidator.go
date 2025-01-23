@@ -87,29 +87,33 @@ func addValidator() (string, string) {
 	return accountAddress, validatorAddress
 }
 
-func createValidatorFile(validatorKeyData ValidatorKeyData, pubKey PubKey) {
-	// Create a validator file
-	validatorJSON := `{
-		"address": "` + validatorKeyData.Address + `",
-		"pub_key": {
-			"type": "` + pubKey.Type + `",
-			"value": "` + pubKey.Key + `"}`
+func createValidatorFile(validatorAddress, pubKey string) error {
+	// Create the validator data structure
+	validator := ValidatorFile{
+		Name:        settings.ValidatorName,
+		Address:     validatorAddress,
+		PubKey:      pubKey,
+		KeyringPath: settings.KeyringBackend,
+		HomeDir:     settings.AppHomeDir,
+	}
 
-	err := os.WriteFile(settings.ValidatorPath, []byte(validatorJSON), 0644)
+	// Serialize the validator data to JSON
+	data, err := json.MarshalIndent(validator, "", "  ")
 	if err != nil {
-		fmt.Printf("Failed to write validator JSON file: %s\n", err)
-		os.Exit(1)
+		return fmt.Errorf("failed to marshal validator data: %w", err)
 	}
-}
 
-/*
-	validatorData := map[string]interface{}{
-		"name":     settings.ValidatorName,
-		"pubkey":   settings.ValidatorPubKey,
-		"amount":   settings.StakeAmount,
-		"moniker":  settings.ValidatorMoniker,
-		"chain-id": settings.ChainID,
-		"fees":     settings.Fees,
-		"gas":      "auto",
+	// Write the JSON data to a file
+	file, err := os.Create(settings.ValidatorPath)
+	if err != nil {
+		return fmt.Errorf("failed to create file: %w", err)
 	}
-*/
+	defer file.Close()
+
+	if _, err := file.Write(data); err != nil {
+		return fmt.Errorf("failed to write to file: %w", err)
+	}
+
+	fmt.Printf("Validator file created successfully: %s\n", settings.ValidatorPath)
+	return nil
+}

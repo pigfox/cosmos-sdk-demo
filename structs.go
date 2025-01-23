@@ -32,6 +32,14 @@ type GenesisParams struct {
 	ValidatorAddress string `json:"validator_address"`
 }
 
+type ValidatorFile struct {
+	Name        string `json:"name"`
+	Address     string `json:"address"`
+	PubKey      string `json:"pubkey"`
+	KeyringPath string `json:"keyring_path"`
+	HomeDir     string `json:"home_dir"`
+}
+
 type Settings struct {
 	KeyringBackend string `json:"keyring_backend"`
 	KeyName        string `json:"key_name"`

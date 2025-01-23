@@ -9,8 +9,11 @@ const (
 	STOP  = "stop"
 )
 
-var regularAccount RegularAccount
+//var regularAccount RegularAccount
+
+/*
 var validatorKeyData ValidatorKeyData
+*/
 var settings Settings
 
 func main() {
