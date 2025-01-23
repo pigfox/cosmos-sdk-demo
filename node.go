@@ -11,7 +11,7 @@ func node(state string) {
 	if state == START {
 		fmt.Println("Starting node...")
 		// Start the node with the simd command
-		cmd := exec.Command("simd", "start")
+		cmd := exec.Command("simd", "start", "--home", settings.AppHomeDir)
 		var out bytes.Buffer
 		cmd.Stdout = &out
 		cmd.Stderr = &out
