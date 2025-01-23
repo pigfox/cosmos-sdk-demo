@@ -18,13 +18,11 @@ func simd() {
 		os.Exit(1)
 	}
 
-	// Print 'simd' version
-	cmd := exec.Command("simd", "version")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	err = cmd.Run()
+	vCmd := []string{"version"}
+	out, err := simdCmd(vCmd)
 	if err != nil {
-		fmt.Println("Error: Failed to get 'simd' version.", whereami.WhereAmI(), err)
+		fmt.Println("Error: Failed to get 'simd' version.", err, out)
 		os.Exit(1)
 	}
+	fmt.Println("simd version:", out)
 }

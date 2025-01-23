@@ -14,9 +14,9 @@ var settings Settings
 func main() {
 	fmt.Println("Starting setup...")
 	settings = newSettings()
+	reset()
 	simd()
 	tools()
-	reset()
 	addRegularKey()
 	accountAddress, validatorAddress := addValidator()
 	//fmt.Println("Regular account address:", accountAddress)
