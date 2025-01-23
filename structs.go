@@ -60,7 +60,7 @@ func newSettings() Settings {
 		KeyName:        "my-key",
 		ChainID:        "my-chain",
 		Moniker:        "pigfox",
-		ValidatorPath:  appHomeDir + "/validator.json",
+		ValidatorPath:  appHomeDir + "/config/validator.json",
 		Fees:           "10000stake",
 		Amount:         "500000stake",
 		GenesisPath:    appHomeDir + "/config/genesis.json",

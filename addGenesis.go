@@ -17,7 +17,7 @@ import (
 		Key  string `json:"key"`
 	}
 */
-func addGenesis(accountAddress, validatorAddress string, validatorPubkey PubKey) {
+func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey PubKey) {
 	fmt.Println("addGenesis: Create the genesis file")
 
 	// Define the target path for the genesis file

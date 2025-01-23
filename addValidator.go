@@ -87,7 +87,7 @@ func addValidator() (string, string) {
 	return accountAddress, validatorAddress
 }
 
-func createValidatorFile(validatorAddress, pubKey string) {
+func addValidatorFile(validatorAddress, pubKey string) {
 	// Create the validator data structure
 	validator := ValidatorFile{
 		Name:        settings.Moniker,
