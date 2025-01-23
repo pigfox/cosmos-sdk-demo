@@ -25,7 +25,8 @@ func clearSetup() {
 
 	fmt.Println("Blockchain reset successfully!")
 	deleteKeys()
-	removeGenesis()
+	deleteGenesisFile()
+	deleteValidatorFile()
 }
 
 // clear clears the terminal screen
@@ -122,7 +123,7 @@ func parseKeyNames(jsonOutput string) []string {
 	return keyNames
 }
 
-func removeGenesis() {
+func deleteGenesisFile() {
 	genesisFile := settings.GenesisPath
 	err := os.Remove(genesisFile)
 	if err != nil {
@@ -130,4 +131,14 @@ func removeGenesis() {
 		os.Exit(1)
 	}
 	fmt.Println("Genesis file removed successfully!")
+}
+
+func deleteValidatorFile() {
+	validatorFile := settings.ValidatorPath
+	err := os.Remove(validatorFile)
+	if err != nil {
+		fmt.Printf("Failed to remove validator file: %v\n", err)
+		os.Exit(1)
+	}
+	fmt.Println("Validator file removed successfully!")
 }
