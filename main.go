@@ -25,10 +25,10 @@ func main() {
 	fmt.Println("Validator public key:", validatorPubKey)
 	addGenesis(accountAddress, validatorAddress, validatorPubKey)
 	createValidatorFile(validatorAddress, validatorPubKey.Key)
-	/*
-		node(START)
-		stake(validatorAddress)
-		node(STOP)
+	/*	*/
+	node(START)
+	stake(validatorAddress)
+	node(STOP)
 
-	*/
+	fmt.Println("Run complete.")
 }

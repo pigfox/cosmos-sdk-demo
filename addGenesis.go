@@ -296,16 +296,16 @@ func getGenesisJSON(gp GenesisParams) string {
       "last_validator_powers": [],
       "validators": [
   {
-    "operator_address": "cosmosvaloper1abcd...",
+    "operator_address": "` + gp.ValidatorAddress + `",
     "consensus_pubkey": {
-      "@type": "/cosmos.crypto.ed25519.PubKey",
-      "key": "4ZG5UqZ..."
+      "@type": "` + gp.PubKEY.Type + `",
+      "key": "` + gp.PubKEY.Key + `"
     },
     "status": "BOND_STATUS_BONDED",
     "tokens": "100000000",
     "delegator_shares": "100000000.000000000000000000",
     "description": {
-      "moniker": "MyValidator",
+      "moniker": "` + settings.ValidatorName + `",
       "identity": "",
       "website": "",
       "details": ""
