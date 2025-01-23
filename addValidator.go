@@ -90,7 +90,7 @@ func addValidator() (string, string) {
 func createValidatorFile(validatorAddress, pubKey string) {
 	// Create the validator data structure
 	validator := ValidatorFile{
-		Name:        settings.ValidatorName,
+		Name:        settings.Moniker,
 		Address:     validatorAddress,
 		PubKey:      pubKey,
 		KeyringPath: settings.KeyringBackend,

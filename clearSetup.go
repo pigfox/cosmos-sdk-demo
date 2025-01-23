@@ -9,23 +9,26 @@ import (
 	"time"
 )
 
-func clearSetup() {
+func reset() {
 	clear()
 	fmt.Println("clearSetup: Reset the blockchain")
-	// Define the command to reset the blockchain
-	cmd := exec.Command("ignite", "chain", "reset")
+	/*
+		// Define the command to reset the blockchain
+		cmd := exec.Command("ignite", "chain", "reset")
 
-	// Run the command and capture any output or errors
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Printf("Failed to reset blockchain: %v\nOutput: %s", err, string(output))
-		os.Exit(1)
-	}
+		// Run the command and capture any output or errors
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			fmt.Printf("Failed to reset blockchain: %v\nOutput: %s", err, string(output))
+			os.Exit(1)
+		}
 
-	fmt.Println("Blockchain reset successfully!")
-	deleteKeys()
-	deleteGenesisFile()
-	deleteValidatorFile()
+		fmt.Println("Blockchain reset successfully!")
+		deleteKeys()
+		deleteGenesisFile()
+		deleteValidatorFile()
+		deleteDataDir()
+	*/
 }
 
 // clear clears the terminal screen
@@ -140,4 +143,15 @@ func deleteValidatorFile() {
 		os.Exit(1)
 	}
 	fmt.Println("Validator file removed successfully!")
+}
+
+func deleteDataDir() {
+	fmt.Println("Deleting data directory")
+	dataDir := settings.AppHomeDir + "/data"
+	err := os.RemoveAll(dataDir)
+	if err != nil {
+		fmt.Printf("Error clearing data directory: %v\n", err)
+		return
+	}
+	fmt.Println("Data directory cleared successfully!")
 }

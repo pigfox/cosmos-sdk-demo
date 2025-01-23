@@ -44,7 +44,7 @@ type Settings struct {
 	KeyringBackend string `json:"keyring_backend"`
 	KeyName        string `json:"key_name"`
 	ChainID        string `json:"chain_id"`
-	ValidatorName  string `json:"validator_name"`
+	Moniker        string `json:"moniker"`
 	ValidatorPath  string `json:"validator_path"`
 	Fees           string `json:"fees"`
 	Amount         string `json:"amount"`
@@ -59,7 +59,7 @@ func newSettings() Settings {
 		KeyringBackend: "test",
 		KeyName:        "my-key",
 		ChainID:        "my-chain",
-		ValidatorName:  "pigfox",
+		Moniker:        "pigfox",
 		ValidatorPath:  appHomeDir + "/validator.json",
 		Fees:           "10000stake",
 		Amount:         "500000stake",

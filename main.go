@@ -14,7 +14,7 @@ var settings Settings
 func main() {
 	fmt.Println("Starting setup...")
 	settings = newSettings()
-	clearSetup()
+	reset()
 	simd()
 	tools()
 	addRegularKey()

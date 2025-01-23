@@ -305,7 +305,7 @@ func getGenesisJSON(gp GenesisParams) string {
     "tokens": "100000000",
     "delegator_shares": "100000000.000000000000000000",
     "description": {
-      "moniker": "` + settings.ValidatorName + `",
+      "moniker": "` + settings.Moniker + `",
       "identity": "",
       "website": "",
       "details": ""
