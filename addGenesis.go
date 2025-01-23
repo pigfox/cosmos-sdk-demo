@@ -62,7 +62,7 @@ func getGenesisJSON(gp GenesisParams) string {
 		os.Exit(1)
 	}
 
-	regex = `^cosmosvaloper1[a-z0-9]{38}$`
+	regex = `^cosmosvaloper1[a-z0-9]{39}$`
 	matched, err = regexp.MatchString(regex, gp.ValidatorAddress)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
@@ -71,7 +71,7 @@ func getGenesisJSON(gp GenesisParams) string {
 
 	if !matched {
 		fmt.Println("Error: validator address is not in the correct format", whereami.WhereAmI())
-		fmt.Println("validatorAddress:", gp.ValidatorAddress)
+		fmt.Println("validatorAddress:", gp.ValidatorAddress, "length", len(gp.ValidatorAddress))
 		os.Exit(1)
 	}
 
