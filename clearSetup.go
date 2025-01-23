@@ -43,7 +43,7 @@ func clear() {
 }
 
 func deleteKeys() {
-	fmt.Println("Step 0b: Deleting all keys")
+	fmt.Println("Deleting all keys")
 
 	// Remove all files in the keyring-test directory
 	err := os.RemoveAll(settings.AppHomeDir + "/keyring-test/*")
