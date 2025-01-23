@@ -15,6 +15,9 @@ You should use the cosmos prefix for regular addresses and cosmosvaloper for val
 appropriate fields in your configuration files.
 
 
+
+
+
 From Brydon: 
 Don't think of it as an AI but as a coworker (a junior swe). your goal is to:
 create a task (a repo in some initial state + a prompt) for that junior swe
@@ -23,3 +26,8 @@ create a way to grade that task. imagine you're trying to do like a 30 day revie
 by assumption "pass all tests" is assumed to be a criteria. you can have held out tests (invisible to the junior swe)
 additional programmatic tests are good too. things like "run this bash script and make sure no errors, run this javac command, etc."
 and qualitative criteria are especially desired. things like "make sure that the solution given passes these code smell checks" or "make sure the solution given uses these libraries and not these ones, or follows these best practices, or uses such and such internal module instead of an external version" etc.
+
+Open /home/peter/.simapp/config/genesis.json and search for entries where cosmosvaloper... appears.
+grep -ri 'cosmosvaloper' /home/peter/.simapp/config/genesis.json
+
+grep -ri 'cosmosvaloper' /home/peter/.simapp/validator.json

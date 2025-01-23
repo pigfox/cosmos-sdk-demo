@@ -296,7 +296,7 @@ func getGenesisJSON(gp GenesisParams) string {
       "last_validator_powers": [],
       "validators": [
   {
-    "operator_address": "` + gp.ValidatorAddress + `",
+    "operator_address": "` + gp.Address + `",
     "consensus_pubkey": {
       "@type": "` + gp.PubKEY.Type + `",
       "key": "` + gp.PubKEY.Key + `"
