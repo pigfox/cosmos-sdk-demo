@@ -50,6 +50,7 @@ type Settings struct {
 	Amount         string `json:"amount"`
 	GenesisPath    string `json:"genesis_path"`
 	AppHomeDir     string `json:"app_home_dir"`
+	NodeURL        string `json:"node_url"`
 }
 
 func newSettings() Settings {
@@ -64,5 +65,6 @@ func newSettings() Settings {
 		Amount:         "500000stake",
 		GenesisPath:    appHomeDir + "/config/genesis.json",
 		AppHomeDir:     appHomeDir,
+		NodeURL:        "http://localhost:26657",
 	}
 }

@@ -48,7 +48,7 @@ func node(state string) {
 	}
 
 	// Query the node's status
-	cmd := exec.Command("simd", "status", "--node", "http://localhost:26657")
+	cmd := exec.Command("simd", "status", "--node", settings.NodeURL)
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &out
