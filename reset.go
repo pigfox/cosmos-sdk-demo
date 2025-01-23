@@ -5,45 +5,44 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"regexp"
-	"time"
 )
 
 func reset() {
-	clear()
-	fmt.Println("clearSetup: Reset the blockchain")
-	/*
-		// Define the command to reset the blockchain
-		cmd := exec.Command("ignite", "chain", "reset")
+	fmt.Println("Reset the blockchain")
 
-		// Run the command and capture any output or errors
-		output, err := cmd.CombinedOutput()
-		if err != nil {
-			fmt.Printf("Failed to reset blockchain: %v\nOutput: %s", err, string(output))
-			os.Exit(1)
-		}
-
-		fmt.Println("Blockchain reset successfully!")
-		deleteKeys()
-		deleteGenesisFile()
-		deleteValidatorFile()
-		deleteDataDir()
-	*/
-}
-
-// clear clears the terminal screen
-func clear() {
-	cmd := exec.Command("clear")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	// Execute the command and handle errors
-	err := cmd.Run()
+	// Remove old data directory
+	dataDir := settings.AppHomeDir
+	err := os.RemoveAll(dataDir)
 	if err != nil {
-		fmt.Printf("Failed to clear the terminal: %v\n", err)
+		fmt.Printf("Failed to remove data directory: %v\n", err)
+		os.Exit(1)
 	}
+
+	// Reinitialize the blockchain
+	cmd := exec.Command("simd", "init", settings.Moniker, "--home", settings.AppHomeDir)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &out
+	err = cmd.Run()
+	if err != nil {
+		fmt.Printf("Failed to reset blockchain: %v\nOutput: %s", err, out.String())
+		os.Exit(1)
+	}
+	fmt.Println("Blockchain reset successfully!")
+
+	// Start the blockchain
+	cmd = exec.Command("simd", "start", "--home", settings.AppHomeDir)
+	cmd.Stdout = &out
+	cmd.Stderr = &out
+	err = cmd.Run()
+	if err != nil {
+		fmt.Printf("Failed to start blockchain: %v\nOutput: %s", err, out.String())
+		os.Exit(1)
+	}
+	fmt.Println("Blockchain started successfully!")
 }
 
+/*
 func deleteKeys() {
 	fmt.Println("Deleting all keys")
 
@@ -155,3 +154,4 @@ func deleteDataDir() {
 	}
 	fmt.Println("Data directory cleared successfully!")
 }
+*/
