@@ -42,7 +42,7 @@ if [[ ! "$my_validator_address" =~ ^cosmosvaloper ]]; then
 fi
 
 # Add genesis account (using the retrieved address)
-simd genesis add-genesis-account $my_key_address 10000stake #--append
+simd genesis add-genesis-account $my_key_address 1000000000000stake #--append
 
 # Start the node
 simd start --home $HOME_DIR &
