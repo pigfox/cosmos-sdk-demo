@@ -12,7 +12,6 @@ KEY_NAME=mykey
 CHAIN_ID=chainid
 MONIKER=pigfox
 
-chmod -R u+rwx /home/$USER/.simd
 rm -rf $HOME_DIR
 mkdir -p $HOME_DIR
 
