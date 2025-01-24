@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"os/exec"
 )
 
 func getValidatorPubKey(accountAddress string) PubKey {
@@ -18,15 +17,14 @@ func getValidatorPubKey(accountAddress string) PubKey {
 	}
 	fmt.Println("Fetching keys with command:", validatorPubKeyCmd)
 
-	cmd := exec.Command("simd", validatorPubKeyCmd...)
-	output, err := cmd.CombinedOutput()
+	output, err := simdCmd(validatorPubKeyCmd)
 	if err != nil {
 		fmt.Printf("Error executing command: %v\n", err)
 		os.Exit(1)
 	}
 
 	var keys []ValidatorKeyData
-	if err := json.Unmarshal(output, &keys); err != nil {
+	if err := json.Unmarshal([]byte(output), &keys); err != nil {
 		fmt.Printf("Error unmarshaling ValidatorKeyData: %v\n", err)
 		os.Exit(1)
 	}

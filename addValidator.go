@@ -20,8 +20,7 @@ func addValidator() (string, string) {
 		"--output", "json",
 	}
 	fmt.Println("Validating key existence with command:", validateKeyCmd)
-	cmd := exec.Command("simd", validateKeyCmd...)
-	output, err := cmd.CombinedOutput()
+	output, err := simdCmd(validateKeyCmd)
 	if err != nil {
 		fmt.Printf("Failed to list keys: %s\n", err)
 		fmt.Printf("Command Output: %s\n", string(output))
@@ -29,7 +28,7 @@ func addValidator() (string, string) {
 	}
 
 	var keys []map[string]interface{}
-	if err := json.Unmarshal(output, &keys); err != nil {
+	if err := json.Unmarshal([]byte(output), &keys); err != nil {
 		fmt.Printf("Failed to parse key list: %s\n", err)
 		os.Exit(1)
 	}
