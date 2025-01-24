@@ -12,8 +12,20 @@ KEY_NAME=mykey
 CHAIN_ID=chainid
 MONIKER=pigfox
 
-# Remove existing genesis.json file
-rm -rf $HOME_DIR/config/genesis.json
+chmod -R u+rwx /home/$USER/.simd
+rm -rf $HOME_DIR
+mkdir -p $HOME_DIR
+
+simd version
+
+# Initialize the chain
+simd init $MONIKER --chain-id $CHAIN_ID --home $HOME_DIR --overwrite --log_level debug
+
+# Check for `simd init` errors
+if [ $? -ne 0 ]; then
+  echo "Error during simd init. Please check the output above for more details."
+  exit 1
+fi
 
 # Generate keys
 echo "y" | simd keys add $KEY_NAME --keyring-backend $KEYRING_BACKEND --home $HOME_DIR
@@ -32,15 +44,6 @@ fi
 
 # Add genesis account (using the retrieved address)
 simd genesis add-genesis-account $my_key_address 10000stake #--append
-
-# Initialize the chain
-simd init $MONIKER --chain-id $CHAIN_ID --home $HOME_DIR --overwrite 
-
-# Check for `simd init` errors
-if [ $? -ne 0 ]; then
-  echo "Error during simd init. Please check the output above for more details."
-  exit 1
-fi
 
 # Start the node
 simd start --home $HOME_DIR &
