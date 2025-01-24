@@ -17,17 +17,16 @@ func reset() {
 		os.Exit(1)
 	}
 
-	initCmd := []string{
-		"keys", "init",
-		settings.Moniker,
-		"--home", settings.AppHomeDir,
-	}
-	out, err := simdCmd(initCmd)
+	fmt.Println("Data directory removed:", dir)
+
+	cmd := exec.Command("mkdir", "-p", dir)
+	cmd.Stdout = os.Stdout
+
+	err = cmd.Run()
 	if err != nil {
-		fmt.Printf("Failed to reset blockchain: %v\nOutput: %s", err, out)
+		fmt.Printf("Failed to create data directory: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Println("Blockchain reset successfully!")
 }
 
 func clear() {

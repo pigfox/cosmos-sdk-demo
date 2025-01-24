@@ -46,7 +46,7 @@ func addValidator() (string, string) {
 		fmt.Printf("Key '%s' not found in the keyring.\n", settings.KeyName)
 		os.Exit(1)
 	}
-
+	//my_validator_address=$(simd keys show "$KEY_NAME" --keyring-backend "$KEYRING_BACKEND" --home "$HOME_DIR" --bech val --address)
 	// Step 2: Fetch the regular account address
 	addValidatorCmd := []string{
 		"keys", "show", settings.KeyName,
