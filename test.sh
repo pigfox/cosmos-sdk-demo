@@ -10,6 +10,7 @@ HOME_DIR=/home/$USER/.simd
 KEYRING_BACKEND=test
 KEY_NAME=mykey
 CHAIN_ID=chainid
+MONIKER=pigfox
 
 # Remove existing genesis.json file
 rm -rf $HOME_DIR/config/genesis.json
@@ -32,24 +33,25 @@ fi
 # Add genesis account (using the retrieved address)
 simd genesis add-genesis-account $my_key_address 10000stake #--append
 
-# Delegate stake to the validator using the dynamically retrieved validator address
-simd tx staking delegate $my_validator_address 500000stake --from $KEY_NAME --home $HOME_DIR --keyring-backend $KEYRING_BACKEND --chain-id $CHAIN_ID --gas auto --fees 5000stake -y
-
-# Collect genesis transactions
-simd collect-gentxs --home $HOME_DIR
-
 # Initialize the chain
-simd init $CHAIN_ID --chain-id $CHAIN_ID --home $HOME_DIR
+simd init $MONIKER --chain-id $CHAIN_ID --home $HOME_DIR
 
 # Start the node
 simd start --home $HOME_DIR &
 
 # Wait for the node to start
-sleep 5
+sleep 15
 
 # Check node status
 simd status --home $HOME_DIR
-exit
+
+# Delegate stake to the validator using the dynamically retrieved validator address
+simd tx staking delegate $my_validator_address 500000stake --from $KEY_NAME --home $HOME_DIR --keyring-backend $KEYRING_BACKEND --chain-id $CHAIN_ID --gas auto --fees 5000stake -y
+#fails on lie above
+
+# Collect genesis transactions
+simd collect-gentxs --home $HOME_DIR
+
 # Delegate stake to the validator 
 simd tx staking delegate $my_validator_address 1000000000stake --from $KEY_NAME --keyring-backend $KEYRING_BACKEND --home $HOME_DIR --chain-id $CHAIN_ID --gas auto --fees 10000stake -y
 
