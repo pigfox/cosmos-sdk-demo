@@ -34,20 +34,25 @@ fi
 simd genesis add-genesis-account $my_key_address 10000stake #--append
 
 # Initialize the chain
-simd init $MONIKER --chain-id $CHAIN_ID --home $HOME_DIR
+simd init $MONIKER --chain-id $CHAIN_ID --home $HOME_DIR --overwrite 
+
+# Check for `simd init` errors
+if [ $? -ne 0 ]; then
+  echo "Error during simd init. Please check the output above for more details."
+  exit 1
+fi
 
 # Start the node
 simd start --home $HOME_DIR &
 
-# Wait for the node to start
-sleep 15
+# Wait for the node to start (with increased timeout)
+sleep 30 
 
 # Check node status
 simd status --home $HOME_DIR
 
 # Delegate stake to the validator using the dynamically retrieved validator address
 simd tx staking delegate $my_validator_address 500000stake --from $KEY_NAME --home $HOME_DIR --keyring-backend $KEYRING_BACKEND --chain-id $CHAIN_ID --gas auto --fees 5000stake -y
-#fails on lie above
 
 # Collect genesis transactions
 simd collect-gentxs --home $HOME_DIR
