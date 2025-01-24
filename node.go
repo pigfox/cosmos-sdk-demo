@@ -10,20 +10,14 @@ import (
 func node(state string) {
 	if state == START {
 		fmt.Println("Starting node...")
-		// Start the node with the simd command
-		cmd := exec.Command("simd", "start", "--home", settings.AppHomeDir)
-		var out bytes.Buffer
-		cmd.Stdout = &out
-		cmd.Stderr = &out
-
-		// Execute the command
-		err := cmd.Run()
+		startCmd := []string{"start", "--home", settings.AppHomeDir}
+		output, err := simdCmd(startCmd)
 		if err != nil {
 			fmt.Printf("Error starting node: %v\n", err)
-			fmt.Println(out.String())
+			fmt.Println(output)
 			os.Exit(1)
 		}
-		fmt.Println("Node started successfully.")
+		fmt.Println("Node started successfully.", output)
 
 	} else if state == STOP {
 		fmt.Println("Stopping node...")
@@ -48,20 +42,15 @@ func node(state string) {
 	}
 
 	// Query the node's status
-	cmd := exec.Command("simd", "status", "--node", settings.NodeURL)
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stderr = &out
-
-	// Execute the command
-	err := cmd.Run()
+	startCmd := []string{"status", "--node", settings.NodeURL}
+	output, err := simdCmd(startCmd)
 	if err != nil {
 		fmt.Printf("Error querying node status: %v\n", err)
-		fmt.Println(out.String())
+		fmt.Println(output)
 		os.Exit(1)
 	}
 
 	// Print the node's status
 	fmt.Println("Node status:")
-	fmt.Println(out.String())
+	fmt.Println(output)
 }
