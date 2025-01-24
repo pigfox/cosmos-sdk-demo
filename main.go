@@ -20,14 +20,15 @@ func main() {
 	initChain()
 	regularKey := addRegularKey()
 	fmt.Println("Regular key:", regularKey)
+
+	//my_validator_address=$(simd keys show "$KEY_NAME" --keyring-backend "$KEYRING_BACKEND" --home "$HOME_DIR" --bech val --address)
+	accountAddress, validatorAddress := addValidator()
+	fmt.Println("Regular account address:", accountAddress)
+	fmt.Println("Validator address:", validatorAddress)
+
+	validatorPubKey := getValidatorPubKey(accountAddress)
+	fmt.Println("Validator public key:", validatorPubKey)
 	/*
-		//my_key_address=$(simd keys show "$KEY_NAME" --keyring-backend "$KEYRING_BACKEND" --home "$HOME_DIR" --address)
-		//my_validator_address=$(simd keys show "$KEY_NAME" --keyring-backend "$KEYRING_BACKEND" --home "$HOME_DIR" --bech val --address)
-		accountAddress, validatorAddress := addValidator()
-		//fmt.Println("Regular account address:", accountAddress)
-		//fmt.Println("Validator address:", validatorAddress)
-		validatorPubKey := getValidatorPubKey(accountAddress)
-		//fmt.Println("Validator public key:", validatorPubKey)
 		addGenesisFile(accountAddress, validatorAddress, validatorPubKey)
 		addValidatorFile(validatorAddress, validatorPubKey.Key)
 		node(START)
