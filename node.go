@@ -50,7 +50,6 @@ func node(state string) {
 		os.Exit(1)
 	}
 
-	// Print the node's status
 	fmt.Println("Node status:")
 	fmt.Println(output)
 }
