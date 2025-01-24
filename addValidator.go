@@ -4,12 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"os/exec"
 	"strings"
 )
 
 // AddValidatorAndKey adds a validator and the associated key based on the provided constants and stores the result in a Validator struct.
-func addValidator() (string, string) {
+func addValidator() string {
 	fmt.Println("addValidator()")
 
 	// Step 1: Validate the key exists
@@ -47,43 +46,24 @@ func addValidator() (string, string) {
 	}
 	//my_validator_address=$(simd keys show "$KEY_NAME" --keyring-backend "$KEYRING_BACKEND" --home "$HOME_DIR" --bech val --address)
 	// Step 2: Fetch the regular account address
-	addValidatorCmd := []string{
-		"keys", "show", settings.KeyName,
-		"--keyring-backend", settings.KeyringBackend,
-		"--home", settings.AppHomeDir,
-		"--address",
-	}
-	fmt.Println("Fetching regular account address with command:", addValidatorCmd)
-	cmd = exec.Command("simd", addValidatorCmd...)
-	output, err = cmd.CombinedOutput()
-	if err != nil {
-		fmt.Printf("Failed to fetch regular account address: %s\n", err)
-		fmt.Printf("Command Output: %s\n", string(output))
-		os.Exit(1)
-	}
-	accountAddress := strings.TrimSpace(string(output))
-	fmt.Println("Regular account address fetched:", accountAddress)
-
-	// Step 3: Fetch the validator address
-	addValidatorCmd = []string{
+	getValidatorCmd := []string{
 		"keys", "show", settings.KeyName,
 		"--keyring-backend", settings.KeyringBackend,
 		"--home", settings.AppHomeDir,
 		"--bech", "val",
 		"--address",
 	}
-	fmt.Println("Fetching validator address with command:", addValidatorCmd)
-	cmd = exec.Command("simd", addValidatorCmd...)
-	output, err = cmd.CombinedOutput()
+
+	output, err = simdCmd(getValidatorCmd)
 	if err != nil {
-		fmt.Printf("Failed to fetch validator address: %s\n", err)
+		fmt.Printf("Failed to fetch regular account address: %s\n", err)
 		fmt.Printf("Command Output: %s\n", string(output))
 		os.Exit(1)
 	}
 	validatorAddress := strings.TrimSpace(string(output))
 	fmt.Println("Validator address fetched:", validatorAddress)
 
-	return accountAddress, validatorAddress
+	return validatorAddress
 }
 
 func addValidatorFile(validatorAddress, pubKey string) {
