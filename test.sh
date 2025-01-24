@@ -11,6 +11,7 @@ KEYRING_BACKEND=test
 KEY_NAME=mykey
 CHAIN_ID=chainid
 MONIKER=pigfox
+INITIAL_DELEGATION_AMOUNT=1000000000000stake 
 
 rm -rf $HOME_DIR
 mkdir -p $HOME_DIR
@@ -42,7 +43,16 @@ if [[ ! "$my_validator_address" =~ ^cosmosvaloper ]]; then
 fi
 
 # Add genesis account (using the retrieved address)
-simd genesis add-genesis-account $my_key_address 1000000000000stake #--append
+simd genesis add-genesis-account $my_key_address $INITIAL_DELEGATION_AMOUNT
+
+# **Create a genesis transaction for delegation**
+simd tx staking delegate $my_validator_address $INITIAL_DELEGATION_AMOUNT \
+    --from $KEY_NAME \
+    --keyring-backend $KEYRING_BACKEND \
+    --home $HOME_DIR \
+    --chain-id $CHAIN_ID \
+    --generate-only \
+    > $HOME_DIR/config/gentx
 
 # Start the node
 simd start --home $HOME_DIR &
