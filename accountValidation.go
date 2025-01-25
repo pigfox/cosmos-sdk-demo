@@ -56,7 +56,7 @@ func accountValidation(gp GenesisParams) {
 		os.Exit(1)
 	}
 
-	regex := `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{8,9}Z$` // vaild time format: 2025-01-17T02:42:28.062004646Z
+	regex := `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{8,9}Z$` // valid time format: 2025-01-17T02:42:28.062004646Z
 	matched, err := regexp.MatchString(regex, gp.CreatedTime)
 	if err != nil {
 		fmt.Println("Error with regex:", whereami.WhereAmI(), err)
