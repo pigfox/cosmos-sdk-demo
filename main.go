@@ -19,6 +19,13 @@ func main() {
 	tools()
 	initChain()
 	regularKey := addRegularKey()
+	/*
+		regularKey2 := addRegularKey("2")
+		if regularKey == regularKey2 {
+			fmt.Println("Error: Same keys.")
+			os.Exit(1)
+		}
+	*/
 	fmt.Println("Regular key:", regularKey)
 	accountAddress := getAccountAddress()
 	validatorAddress := addValidator()

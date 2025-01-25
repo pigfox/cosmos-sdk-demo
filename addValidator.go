@@ -68,7 +68,7 @@ func addValidator() string {
 
 func addValidatorFile(validatorAddress, pubKey string) {
 	// Create the validator data structure
-	validator := ValidatorFile{
+	validatorFile := ValidatorFile{
 		Name:        settings.Moniker,
 		Address:     validatorAddress,
 		PubKey:      pubKey,
@@ -77,7 +77,7 @@ func addValidatorFile(validatorAddress, pubKey string) {
 	}
 
 	// Serialize the validator data to JSON
-	data, err := json.MarshalIndent(validator, "", "  ")
+	data, err := json.MarshalIndent(validatorFile, "", "  ")
 	if err != nil {
 		fmt.Printf("failed to marshal validator data: %s", err)
 		os.Exit(1)

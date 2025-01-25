@@ -66,7 +66,7 @@ func newSettings() Settings {
 		Moniker:         "pigfox",
 		ValidatorPath:   appHomeDir + "/config/validator.json",
 		Fees:            "10000",
-		SupplyAmount:    "100000000000000000",
+		SupplyAmount:    "900000000",
 		ValidatorAmount: "100000000",
 		GenesisPath:     appHomeDir + "/config/genesis.json",
 		AppHomeDir:      appHomeDir,
