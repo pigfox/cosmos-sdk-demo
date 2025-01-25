@@ -172,7 +172,7 @@ func getGenesisJSON(gp GenesisParams) string {
       "supply": [
         {
           "denom": "stake",
-          "amount": "` + gp.Amount + `"
+          "amount": "` + gp.SupplyAmount + `"
         }
       ],
       "denom_metadata": [],
