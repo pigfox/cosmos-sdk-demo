@@ -23,7 +23,8 @@ func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey Pub
 		Address:          accountAddress,
 		PubKEY:           validatorPubkey,
 		ValidatorAddress: validatorAddress,
-		Amount:           settings.Amount,
+		ValidatorAmount:  settings.ValidatorAmount,
+		SupplyAmount:     settings.SupplyAmount,
 	}
 	fmt.Println("accountAddress", accountAddress)
 	fmt.Printf("+%v\n", gp)
@@ -163,7 +164,7 @@ func getGenesisJSON(gp GenesisParams) string {
           "coins": [
             {
               "denom": "stake",
-              "amount": "` + gp.Amount + `"
+              "amount": "` + gp.SupplyAmount + `"
             }
           ]
         }
@@ -314,7 +315,7 @@ func getGenesisJSON(gp GenesisParams) string {
       "key": "` + gp.PubKEY.Key + `"
     },
     "status": "BOND_STATUS_BONDED",
-    "tokens": "` + settings.Amount + `",
+    "tokens": "` + gp.ValidatorAmount + `",
     "delegator_shares": "100000000.000000000000000000",
     "description": {
       "moniker": "` + settings.Moniker + `",

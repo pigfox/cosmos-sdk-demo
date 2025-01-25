@@ -21,7 +21,6 @@ func main() {
 	regularKey := addRegularKey()
 	fmt.Println("Regular key:", regularKey)
 	accountAddress := getAccountAddress()
-	//my_validator_address=$(simd keys show "$KEY_NAME" --keyring-backend "$KEYRING_BACKEND" --home "$HOME_DIR" --bech val --address)
 	validatorAddress := addValidator()
 	fmt.Println("Regular account address:", accountAddress)
 	fmt.Println("Validator address:", validatorAddress)

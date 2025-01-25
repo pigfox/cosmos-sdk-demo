@@ -31,6 +31,8 @@ type GenesisParams struct {
 	PubKEY           PubKey `json:"pub_key"`
 	ValidatorAddress string `json:"validator_address"`
 	Amount           string `json:"amount"`
+	ValidatorAmount  string `json:"validator_amount"`
+	SupplyAmount     string `json:"supply_amount"`
 }
 
 type ValidatorFile struct {
@@ -42,30 +44,32 @@ type ValidatorFile struct {
 }
 
 type Settings struct {
-	KeyringBackend string `json:"keyring_backend"`
-	KeyName        string `json:"key_name"`
-	ChainID        string `json:"chain_id"`
-	Moniker        string `json:"moniker"`
-	ValidatorPath  string `json:"validator_path"`
-	Fees           string `json:"fees"`
-	Amount         string `json:"amount"`
-	GenesisPath    string `json:"genesis_path"`
-	AppHomeDir     string `json:"app_home_dir"`
-	NodeURL        string `json:"node_url"`
+	KeyringBackend  string `json:"keyring_backend"`
+	KeyName         string `json:"key_name"`
+	ChainID         string `json:"chain_id"`
+	Moniker         string `json:"moniker"`
+	ValidatorPath   string `json:"validator_path"`
+	Fees            string `json:"fees"`
+	SupplyAmount    string `json:"supply_amount"`
+	ValidatorAmount string `json:"validator_amount"`
+	GenesisPath     string `json:"genesis_path"`
+	AppHomeDir      string `json:"app_home_dir"`
+	NodeURL         string `json:"node_url"`
 }
 
 func newSettings() Settings {
 	appHomeDir := getHomeDir() + "/.simd"
 	return Settings{
-		KeyringBackend: "test",
-		KeyName:        "my-key",
-		ChainID:        "my-chain",
-		Moniker:        "pigfox",
-		ValidatorPath:  appHomeDir + "/config/validator.json",
-		Fees:           "10000",
-		Amount:         "100000000000000000",
-		GenesisPath:    appHomeDir + "/config/genesis.json",
-		AppHomeDir:     appHomeDir,
-		NodeURL:        "http://localhost:26657",
+		KeyringBackend:  "test",
+		KeyName:         "my-key",
+		ChainID:         "my-chain",
+		Moniker:         "pigfox",
+		ValidatorPath:   appHomeDir + "/config/validator.json",
+		Fees:            "10000",
+		SupplyAmount:    "100000000000000000",
+		ValidatorAmount: "100000000",
+		GenesisPath:     appHomeDir + "/config/genesis.json",
+		AppHomeDir:      appHomeDir,
+		NodeURL:         "http://localhost:26657",
 	}
 }
