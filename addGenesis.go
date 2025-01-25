@@ -25,7 +25,7 @@ func addGenesisFile(acct1, acct2, validator Account) {
 		ValidatorAmount: settings.ValidatorAmount,
 		SupplyAmount:    settings.SupplyAmount,
 	}
-
+	accountValidation(gp)
 	genesisJson := getGenesisJSON(gp)
 
 	// Write the updated data to the target genesis file location
