@@ -28,10 +28,10 @@ func main() {
 	validator.AccountKey = addKey(validator.KeyName)
 	validator.AccountKey.Address = addValidatorKey(validator.KeyName)
 	fmt.Println(validator)
-
+	addGenesisFile(acct1, acct2, validator)
 	/*
 
-		addGenesisFile(accountAddress, validatorAddress, validatorPubKey)
+
 
 		addValidatorFile(validatorAddress, validatorPubKey.Key)
 

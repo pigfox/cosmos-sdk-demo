@@ -24,14 +24,14 @@ func newAccount(keyName string) Account {
 }
 
 type GenesisParams struct {
-	CreatedTime      string `json:"created_time"`
-	ChainID          string `json:"chain_id"`
-	Address          string `json:"address"`
-	PubKEY           PubKey `json:"pub_key"`
-	ValidatorAddress string `json:"validator_address"`
-	Amount           string `json:"amount"`
-	ValidatorAmount  string `json:"validator_amount"`
-	SupplyAmount     string `json:"supply_amount"`
+	CreatedTime     string  `json:"created_time"`
+	ChainID         string  `json:"chain_id"`
+	Acct1           Account `json:"acct1"`
+	Acct2           Account `json:"acct2"`
+	Validator       Account `json:"validator"`
+	Amount          string  `json:"amount"`
+	ValidatorAmount string  `json:"validator_amount"`
+	SupplyAmount    string  `json:"supply_amount"`
 }
 
 type ValidatorFile struct {
