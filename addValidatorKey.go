@@ -17,8 +17,6 @@ func addValidatorKey(keyName string) string {
 		"--address",
 	}
 
-	fmt.Println(showKeyCmd)
-
 	output, err := simdCmd(showKeyCmd)
 	if err != nil {
 		fmt.Printf("Failed to add key: %s\n", err)
