@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"regexp"
 	"time"
 
@@ -46,6 +47,16 @@ func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey Pub
 	} else {
 		fmt.Println(string(output))
 	}
+
+	cmd := exec.Command("cat", settings.GenesisPath)
+	out, err := cmd.Output()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	fmt.Println(string(out))
+
 }
 
 func getGenesisJSON(gp GenesisParams) string {
@@ -303,7 +314,7 @@ func getGenesisJSON(gp GenesisParams) string {
       "key": "` + gp.PubKEY.Key + `"
     },
     "status": "BOND_STATUS_BONDED",
-    "tokens": "100000000",
+    "tokens": "` + settings.Amount + `",
     "delegator_shares": "100000000.000000000000000000",
     "description": {
       "moniker": "` + settings.Moniker + `",
