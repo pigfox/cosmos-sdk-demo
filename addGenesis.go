@@ -306,10 +306,6 @@ func getGenesisJSON(gp GenesisParams) string {
       "missed_blocks": []
     },
     "staking": {
-      "pool": {
-        "not_bonded_tokens": "1000000",
-        "bonded_tokens": "5000000000"
-      },
       "params": {
         "unbonding_time": "1814400s",
         "max_validators": 100,
