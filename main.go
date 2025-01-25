@@ -4,11 +4,6 @@ import (
 	"fmt"
 )
 
-const (
-	START = "start"
-	STOP  = "stop"
-)
-
 var settings Settings
 
 func main() {
@@ -18,13 +13,13 @@ func main() {
 	simd()
 	tools()
 	initChain()
-	acct1 := newAccount("acct1")
+	acct1 := newAccount(ACCT1)
 	acct1.AccountKey = addKey(acct1.KeyName)
 	fmt.Printf("Account: %+v\n", acct1)
-	acct2 := newAccount("acct2")
+	acct2 := newAccount(ACCT2)
 	acct2.AccountKey = addKey(acct2.KeyName)
 	fmt.Printf("Account: %+v\n", acct2)
-	validator := newAccount("validator")
+	validator := newAccount(VALIDATOR)
 	validator.AccountKey = addKey(validator.KeyName)
 	validator.AccountKey.Address = addValidatorKey(validator.KeyName)
 	fmt.Println(validator)
