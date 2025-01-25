@@ -9,14 +9,6 @@ import (
 	"github.com/jimlawless/whereami"
 )
 
-/*
-// Struct to represent the expected PubKeyData JSON structure
-
-	type PubKeyData struct {
-		Type string `json:"@type"`
-		Key  string `json:"key"`
-	}
-*/
 func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey PubKey) {
 	fmt.Println("addGenesis: Create the genesis file")
 
@@ -30,6 +22,7 @@ func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey Pub
 		Address:          accountAddress,
 		PubKEY:           validatorPubkey,
 		ValidatorAddress: validatorAddress,
+		Amount:           settings.Amount,
 	}
 	fmt.Println("accountAddress", accountAddress)
 	fmt.Printf("+%v\n", gp)
@@ -41,6 +34,17 @@ func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey Pub
 	if err != nil {
 		fmt.Println("Error: Failed to write updated genesis file:", whereami.WhereAmI(), err)
 		os.Exit(1)
+	}
+
+	validateCmd := []string{"genesis", "validate", settings.GenesisPath}
+	output, err := simdCmd(validateCmd)
+
+	if err != nil {
+		fmt.Println("Error: Failed to fetch regular account address:", err)
+		fmt.Println("Command Output:", string(output))
+		os.Exit(1)
+	} else {
+		fmt.Println(string(output))
 	}
 
 	// JSON is valid
@@ -151,7 +155,7 @@ func getGenesisJSON(gp GenesisParams) string {
           "coins": [
             {
               "denom": "stake",
-              "amount": "100000000"
+              "amount": "` + gp.Amount + `"
             }
           ]
         }
@@ -159,7 +163,7 @@ func getGenesisJSON(gp GenesisParams) string {
       "supply": [
         {
           "denom": "stake",
-          "amount": "100000000"
+          "amount": "` + gp.Amount + `"
         }
       ],
       "denom_metadata": [],
@@ -296,7 +300,7 @@ func getGenesisJSON(gp GenesisParams) string {
       "last_validator_powers": [],
       "validators": [
   {
-    "operator_address": "` + gp.Address + `",
+    "operator_address": "` + gp.ValidatorAddress + `",
     "consensus_pubkey": {
       "@type": "` + gp.PubKEY.Type + `",
       "key": "` + gp.PubKEY.Key + `"

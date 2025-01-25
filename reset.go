@@ -27,6 +27,7 @@ func reset() {
 		fmt.Printf("Failed to create data directory: %v\n", err)
 		os.Exit(1)
 	}
+	fmt.Println("Data directory created:", dir)
 }
 
 func clear() {

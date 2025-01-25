@@ -30,6 +30,7 @@ type GenesisParams struct {
 	Address          string `json:"address"`
 	PubKEY           PubKey `json:"pub_key"`
 	ValidatorAddress string `json:"validator_address"`
+	Amount           string `json:"amount"`
 }
 
 type ValidatorFile struct {
@@ -54,15 +55,15 @@ type Settings struct {
 }
 
 func newSettings() Settings {
-	appHomeDir := getHomeDir() + "/.simapp"
+	appHomeDir := getHomeDir() + "/.simd"
 	return Settings{
 		KeyringBackend: "test",
 		KeyName:        "my-key",
 		ChainID:        "my-chain",
 		Moniker:        "pigfox",
 		ValidatorPath:  appHomeDir + "/config/validator.json",
-		Fees:           "10000stake",
-		Amount:         "500000stake",
+		Fees:           "10000",
+		Amount:         "100000000000000000",
 		GenesisPath:    appHomeDir + "/config/genesis.json",
 		AppHomeDir:     appHomeDir,
 		NodeURL:        "http://localhost:26657",

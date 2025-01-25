@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
 )
 
 func initChain() {
@@ -16,15 +15,11 @@ func initChain() {
 		"--home", settings.AppHomeDir,
 	}
 
-	cmd := exec.Command("simd", initChainCmd...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	err := cmd.Run()
+	output, err := simdCmd(initChainCmd)
 	if err != nil {
 		fmt.Printf("Failed to initialize the blockchain: %s\n", err)
 		os.Exit(1)
 	}
 
-	fmt.Println("Blockchain initialized successfully.")
+	fmt.Println("Blockchain initialized successfully.", output)
 }
