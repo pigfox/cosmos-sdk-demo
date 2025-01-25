@@ -22,7 +22,7 @@ func main() {
 	validator := newAccount(VALIDATOR)
 	validator.AccountKey = addKey(validator.KeyName)
 	validator.AccountKey.Address = addValidatorKey(validator.KeyName)
-	fmt.Println(validator)
+	fmt.Printf("Account: %+v\n", validator)
 	addGenesisFile(acct1, acct2, validator)
 	/*
 
