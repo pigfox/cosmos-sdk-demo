@@ -46,11 +46,20 @@ func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey Pub
 		fmt.Println("Command Output:", string(output))
 		os.Exit(1)
 	} else {
-		fmt.Println(string(output))
+		//fmt.Println(string(output))
 	}
 
-	cmd := exec.Command("cat", settings.GenesisPath)
+	cmd := exec.Command("ls", "-l", settings.GenesisPath)
 	out, err := cmd.Output()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	fmt.Println(string(out))
+
+	cmd = exec.Command("cat", settings.GenesisPath)
+	out, err = cmd.Output()
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -297,6 +306,10 @@ func getGenesisJSON(gp GenesisParams) string {
       "missed_blocks": []
     },
     "staking": {
+      "pool": {
+        "not_bonded_tokens": "1000000",
+        "bonded_tokens": "5000000000"
+      },
       "params": {
         "unbonding_time": "1814400s",
         "max_validators": 100,

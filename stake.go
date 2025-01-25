@@ -20,7 +20,7 @@ func stake(validatorAddress string) {
 
 	// Construct the command
 	cmd := exec.Command(
-		"simd", "tx", "staking", "delegate", validatorAddress, settings.Amount,
+		"simd", "tx", "staking", "delegate", validatorAddress, settings.ValidatorAmount,
 		"--from", settings.KeyName,
 		"--chain-id", settings.ChainID,
 		"--home", settings.AppHomeDir,
