@@ -1,27 +1,26 @@
 package main
 
-type RegularAccount struct {
-	Address              string               `json:"address"`
-	Name                 string               `json:"name"`
-	RegularAccountPubKey RegularAccountPubKey `json:"pubkey"`
-	Type                 string               `json:"type"`
-}
-
-type RegularAccountPubKey struct {
-	Type string `json:"@type"`
-	Key  string `json:"key"`
-}
-
 type PubKey struct {
 	Type string `json:"@type"`
 	Key  string `json:"key"`
 }
 
-type ValidatorKeyData struct {
+type AccountKey struct {
 	Name    string `json:"name"`
 	Type    string `json:"type"`
 	Address string `json:"address"`
-	Pubkey  string `json:"pubkey"`
+	PubKey  string `json:"pubkey"`
+}
+
+type Account struct {
+	KeyName    string     `json:"key_name"`
+	AccountKey AccountKey `json:"account_key"`
+}
+
+func newAccount(keyName string) Account {
+	return Account{
+		KeyName: keyName,
+	}
 }
 
 type GenesisParams struct {

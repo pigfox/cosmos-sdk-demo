@@ -18,30 +18,26 @@ func main() {
 	simd()
 	tools()
 	initChain()
-	regularKey := addRegularKey()
+	acct1 := newAccount("acct1")
+	acct1.AccountKey = addKey(acct1.KeyName)
+	fmt.Printf("Account: %+v\n", acct1)
+	acct2 := newAccount("acct2")
+	acct2.AccountKey = addKey(acct2.KeyName)
+	fmt.Printf("Account: %+v\n", acct2)
+	validator := newAccount("validator")
+	validator.AccountKey = addKey(validator.KeyName)
+	validator.AccountKey.Address = addValidatorKey(validator.KeyName)
+	fmt.Println(validator)
+
 	/*
-		regularKey2 := addRegularKey("2")
-		if regularKey == regularKey2 {
-			fmt.Println("Error: Same keys.")
-			os.Exit(1)
-		}
+
+		addGenesisFile(accountAddress, validatorAddress, validatorPubKey)
+
+		addValidatorFile(validatorAddress, validatorPubKey.Key)
+
+		node(START)
+		stake(validatorAddress)
+		node(STOP)
 	*/
-	fmt.Println("Regular key:", regularKey)
-	accountAddress := getAccountAddress()
-	validatorAddress := addValidator()
-	fmt.Println("Regular account address:", accountAddress)
-	fmt.Println("Validator address:", validatorAddress)
-
-	validatorPubKey := getValidatorPubKey(accountAddress)
-	fmt.Println("Validator public key:", validatorPubKey)
-
-	addGenesisFile(accountAddress, validatorAddress, validatorPubKey)
-
-	addValidatorFile(validatorAddress, validatorPubKey.Key)
-
-	node(START)
-	stake(validatorAddress)
-	node(STOP)
-	/**/
 	fmt.Println("Run complete.")
 }
