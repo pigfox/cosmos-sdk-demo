@@ -15,11 +15,9 @@ func initChain() {
 		"--home", settings.AppHomeDir,
 	}
 
-	output, err := simdCmd(initChainCmd)
+	_, err := simdCmd(initChainCmd)
 	if err != nil {
 		fmt.Printf("Failed to initialize the blockchain: %s\n", err)
 		os.Exit(1)
 	}
-
-	fmt.Println("Blockchain initialized successfully.", output)
 }

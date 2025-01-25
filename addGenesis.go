@@ -10,7 +10,7 @@ import (
 )
 
 func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey PubKey) {
-	fmt.Println("addGenesis: Create the genesis file")
+	fmt.Println("addGenesisFile()")
 
 	// Define the target path for the genesis file
 	genesisFile := settings.GenesisPath
@@ -46,9 +46,6 @@ func addGenesisFile(accountAddress, validatorAddress string, validatorPubkey Pub
 	} else {
 		fmt.Println(string(output))
 	}
-
-	// JSON is valid
-	fmt.Println("Genesis file has been created and is valid. Written to:", genesisFile)
 }
 
 func getGenesisJSON(gp GenesisParams) string {
