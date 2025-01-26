@@ -1,4 +1,4 @@
-# cosmos-sdk-setup
+# cosmos-sdk-demo
 A repo for an automated process to initialize COSMOS-SDK 
 
 To run this application simply type `go run .`

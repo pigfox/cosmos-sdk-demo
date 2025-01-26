@@ -5,15 +5,12 @@ import (
 	"github.com/jimlawless/whereami"
 	"os"
 	"regexp"
-	"strings"
 )
 
 func accountValidation(gp GenesisParams) {
 	if gp.Validator.KeyName == VALIDATOR {
-		// Trim whitespace, including newlines
-		address := strings.TrimSpace(gp.Validator.AccountKey.Address)
 		regex := `^cosmosvaloper1[a-z0-9]{38}$`
-		matched, err := regexp.MatchString(regex, address)
+		matched, err := regexp.MatchString(regex, gp.Validator.AccountKey.Address)
 		if err != nil {
 			fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 			os.Exit(1)
@@ -21,10 +18,12 @@ func accountValidation(gp GenesisParams) {
 
 		if !matched {
 			fmt.Println("Error: validator address is not in the correct format", whereami.WhereAmI())
-			fmt.Printf("validatorAddress (trimmed): %q, length: %d\n", address, len(address))
+			fmt.Printf("validatorAddress (trimmed): %q, length: %d\n", gp.Validator.AccountKey.Address, len(gp.Validator.AccountKey.Address))
 			os.Exit(1)
 		}
-	} else if gp.Acct1.KeyName == ACCT1 {
+	}
+
+	if gp.Acct1.KeyName == ACCT1 {
 		keyRegex := `^[A-Za-z0-9+/]+={0,2}$`
 		matched, err := regexp.MatchString(keyRegex, gp.Acct1.AccountKey.Address)
 		if err != nil {
@@ -37,7 +36,9 @@ func accountValidation(gp GenesisParams) {
 			fmt.Println("Given PubKey:", gp.Acct1.AccountKey.Address)
 			os.Exit(1)
 		}
-	} else if gp.Acct2.KeyName == ACCT2 {
+	}
+
+	if gp.Acct2.KeyName == ACCT2 {
 		keyRegex := `^[A-Za-z0-9+/]+={0,2}$`
 		matched, err := regexp.MatchString(keyRegex, gp.Acct2.AccountKey.Address)
 		if err != nil {
@@ -50,8 +51,6 @@ func accountValidation(gp GenesisParams) {
 			fmt.Println("Given PubKey:", gp.Acct2.AccountKey.Address)
 			os.Exit(1)
 		}
-	} else {
-		fmt.Println("Error: validator account name is not in the correct format", whereami.WhereAmI())
 	}
 
 	if gp.ChainID != settings.ChainID {

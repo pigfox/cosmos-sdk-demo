@@ -9,7 +9,7 @@ type AccountKey struct {
 	Name    string `json:"name"`
 	Type    string `json:"type"`
 	Address string `json:"address"`
-	PubKey  string `json:"pubkey"`
+	Public  PubKey `json:"pubkey"`
 }
 
 type Account struct {
