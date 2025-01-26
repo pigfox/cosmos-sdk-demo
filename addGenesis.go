@@ -69,9 +69,7 @@ func addGenesisFile(acct1, acct2, validator Account) {
 }
 
 func getGenesisJSON(gp GenesisParams) string {
-	return ""
-	/*
-		return `{
+	return `{
 			  "app_name": "simd",
 			  "app_version": "0.50.6",
 			  "genesis_time": "` + gp.CreatedTime + `",
@@ -92,8 +90,8 @@ func getGenesisJSON(gp GenesisParams) string {
 			          "@type": "/cosmos.auth.v1beta1.BaseAccount",
 			          "address": "` + gp.Acct1.AccountKey.Address + `",
 			          "pub_key": {
-			            "@type": "` + gp.Acct1.AccountKey.PubKey.Type + `",
-			            "key": "` + gp.PubKEY.Key + `"
+			            "@type": "` + gp.Acct1.AccountKey.Public.Type + `",
+			            "key": "` + gp.Acct1.AccountKey.Public.Key + `"
 			          },
 			          "account_number": "0",
 			          "sequence": "0"
@@ -259,10 +257,10 @@ func getGenesisJSON(gp GenesisParams) string {
 			      "last_validator_powers": [],
 			      "validators": [
 			  {
-			    "operator_address": "` + gp.ValidatorAddress + `",
+			    "operator_address": "` + gp.Validator.AccountKey.Address + `",
 			    "consensus_pubkey": {
-			      "@type": "` + gp.PubKEY.Type + `",
-			      "key": "` + gp.PubKEY.Key + `"
+			      "@type": "` + gp.Validator.AccountKey.Public.Type + `",
+			      "key": "` + gp.Validator.AccountKey.Public.Key + `"
 			    },
 			    "status": "BOND_STATUS_BONDED",
 			    "tokens": "` + gp.ValidatorAmount + `",
@@ -319,5 +317,4 @@ func getGenesisJSON(gp GenesisParams) string {
 			    }
 			  }
 			}`
-	*/
 }
