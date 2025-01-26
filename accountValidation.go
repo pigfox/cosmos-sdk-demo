@@ -5,12 +5,15 @@ import (
 	"github.com/jimlawless/whereami"
 	"os"
 	"regexp"
+	"strings"
 )
 
 func accountValidation(gp GenesisParams) {
 	if gp.Validator.KeyName == VALIDATOR {
+		// Trim whitespace, including newlines
+		address := strings.TrimSpace(gp.Validator.AccountKey.Address)
 		regex := `^cosmosvaloper1[a-z0-9]{38}$`
-		matched, err := regexp.MatchString(regex, gp.Validator.AccountKey.Address)
+		matched, err := regexp.MatchString(regex, address)
 		if err != nil {
 			fmt.Println("Error with regex:", whereami.WhereAmI(), err)
 			os.Exit(1)
@@ -18,7 +21,7 @@ func accountValidation(gp GenesisParams) {
 
 		if !matched {
 			fmt.Println("Error: validator address is not in the correct format", whereami.WhereAmI())
-			fmt.Println("validatorAddress:", gp.Validator.AccountKey.Address, "length", len(gp.Validator.AccountKey.Address))
+			fmt.Printf("validatorAddress (trimmed): %q, length: %d\n", address, len(address))
 			os.Exit(1)
 		}
 	} else if gp.Acct1.KeyName == ACCT1 {
@@ -68,4 +71,5 @@ func accountValidation(gp GenesisParams) {
 		fmt.Println("Error: createdTime is not in the correct format")
 		os.Exit(1)
 	}
+	fmt.Println("Validation OK")
 }
