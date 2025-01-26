@@ -5,21 +5,21 @@ type PubKey struct {
 	Key  string `json:"key"`
 }
 
-type AccountKey struct {
+type Details struct {
 	Name    string `json:"name"`
 	Type    string `json:"type"`
 	Address string `json:"address"`
-	Public  PubKey `json:"pubkey"`
+	Public  PubKey `json:"pub_key"`
 }
 
 type Account struct {
-	KeyName    string     `json:"key_name"`
-	AccountKey AccountKey `json:"account_key"`
+	Name    string  `json:"key_name"`
+	Details Details `json:"account_key"`
 }
 
 func newAccount(keyName string) Account {
 	return Account{
-		KeyName: keyName,
+		Name: keyName,
 	}
 }
 

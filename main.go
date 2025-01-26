@@ -14,25 +14,19 @@ func main() {
 	tools()
 	initChain()
 	acct1 := newAccount(ACCT1)
-	acct1.AccountKey = addKey(acct1.KeyName)
+	acct1.Details = addKey(acct1.Name)
 	fmt.Printf("Account: %+v\n", acct1)
 	acct2 := newAccount(ACCT2)
-	acct2.AccountKey = addKey(acct2.KeyName)
+	acct2.Details = addKey(acct2.Name)
 	fmt.Printf("Account: %+v\n", acct2)
 	validator := newAccount(VALIDATOR)
-	validator.AccountKey = addKey(validator.KeyName)
-	validator.AccountKey.Address = addValidatorKey(validator.KeyName)
+	validator.Details = addKey(validator.Name)
+	validator.Details.Address = addValidatorKey(validator.Name)
 	fmt.Printf("Account: %+v\n", validator)
 	addGenesisFile(acct1, acct2, validator)
-	/*
-
-
-
-		addValidatorFile(validatorAddress, validatorPubKey.Key)
-
-		node(START)
-		stake(validatorAddress)
-		node(STOP)
-	*/
+	node(START)
+	transfer(acct1, acct2, 50000)
+	stake(validator.Details.Address)
+	node(STOP)
 	fmt.Println("Run complete.")
 }

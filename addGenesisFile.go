@@ -15,7 +15,7 @@ func addGenesisFile(acct1, acct2, validator Account) {
 
 	// Define the target path for the genesis file
 	genesisFile := settings.GenesisPath
-	validator.AccountKey.Address = strings.TrimSpace(validator.AccountKey.Address)
+	validator.Details.Address = strings.TrimSpace(validator.Details.Address)
 
 	created := time.Now().UTC().Format(time.RFC3339Nano)
 	gp := GenesisParams{
@@ -88,10 +88,10 @@ func getGenesisJSON(gp GenesisParams) string {
 			      "accounts": [
 			        {
 			          "@type": "/cosmos.auth.v1beta1.BaseAccount",
-			          "address": "` + gp.Acct1.AccountKey.Address + `",
+			          "address": "` + gp.Acct1.Details.Address + `",
 			          "pub_key": {
-			            "@type": "` + gp.Acct1.AccountKey.Public.Type + `",
-			            "key": "` + gp.Acct1.AccountKey.Public.Key + `"
+			            "@type": "` + gp.Acct1.Details.Public.Type + `",
+			            "key": "` + gp.Acct1.Details.Public.Key + `"
 			          },
 			          "account_number": "0",
 			          "sequence": "0"
@@ -108,7 +108,7 @@ func getGenesisJSON(gp GenesisParams) string {
 			      },
 			      "balances": [
 			        {
-			          "address": "` + gp.Acct1.AccountKey.Address + `",
+			          "address": "` + gp.Acct1.Details.Address + `",
 			          "coins": [
 			            {
 			              "denom": "stake",
@@ -257,10 +257,10 @@ func getGenesisJSON(gp GenesisParams) string {
 			      "last_validator_powers": [],
 			      "validators": [
 			  {
-			    "operator_address": "` + gp.Validator.AccountKey.Address + `",
+			    "operator_address": "` + gp.Validator.Details.Address + `",
 			    "consensus_pubkey": {
-			      "@type": "` + gp.Validator.AccountKey.Public.Type + `",
-			      "key": "` + gp.Validator.AccountKey.Public.Key + `"
+			      "@type": "` + gp.Validator.Details.Public.Type + `",
+			      "key": "` + gp.Validator.Details.Public.Key + `"
 			    },
 			    "status": "BOND_STATUS_BONDED",
 			    "tokens": "` + gp.ValidatorAmount + `",

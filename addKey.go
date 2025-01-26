@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func addKey(keyName string) AccountKey {
+func addKey(keyName string) Details {
 	fmt.Println("addKey()")
 
 	// Step 1: Add the key to the keyring
@@ -47,8 +47,8 @@ func addKey(keyName string) AccountKey {
 		log.Fatalf("Error unmarshaling PubKey: %v", err)
 	}
 
-	// Step 4: Assemble the AccountKey with the parsed PubKey
-	account := AccountKey{
+	// Step 4: Assemble the Details with the parsed PubKey
+	account := Details{
 		Name:    tempAccount.Name,
 		Type:    tempAccount.Type,
 		Address: tempAccount.Address,
