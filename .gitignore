@@ -1,4 +1,5 @@
 go-generated-genesis/
 docker.genesis.json
+genesis.json
 notes.txt
 tmp/
