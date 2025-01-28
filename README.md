@@ -16,7 +16,7 @@ Debug!
 To switch between the initial genesis file structure and an experimental go to 
 addGenesisFile.go.
 
-Comment/Uncomment linnes 31/32
+Comment/Uncomment lines 31/32
 ```
 genesisJson := getGenesisJSONX(gp)
 //genesisJson := getGenesisJSON0(gp)
